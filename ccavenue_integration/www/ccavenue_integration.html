@@ -1,0 +1,23 @@
+
+<html>
+    <head>
+        <title>Sub-merchant checkout page</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+        <center>
+        <!-- width required mininmum 482px -->
+            <iframe width="482" height="500" scrolling="No" frameborder="0" id="paymentFrame" src="https://test.ccavenue.com/transaction/transaction.do?command=generateInvoice&merchant_id=2689730&encRequest=3ae33abb9859afae5a74786e1ac82d3766c564619b1eec905ce3965e29aeea8cd45bd32ebee91bc7b5f3c715a5c32865a682ca749e9ca8a19a72b91426b1321bb87922db521e5f4bbea8b60bd2ca148ed7f2b384b8aede616bfc9177b58d630685cfc9be3ad235549217896d19a5cb68f731ac18d6099ed74c13497c2257503b4af7a84b4c6c2b5d10d9725e9f7d1ba9acacb098c862fbf5793e4a7d95453f16938a69054647d846d21b0d557fc7e8cc5d99771f1ca3ea8cdf56241a657d14bff82630cf37804b55946662a17a7af82bfdd284c1d9ea057848986a941294b8c084cbb22a34a3721f7c09a46a8621c355f30aaeb5cec146084e606fd1ef2b0815d26c3b7c80c75fcd966fba62cfde7e53651b0fb3457a1701e62ef727098f487257e4179eedcd67d705c2b030a76f799362d6dda578720fc392135ac3621ca6e935163dcbd8e894dbb5213b69a742cfc1c010f824206eed665d96d1e6604c62cfd1c7ee4dcdfbe4050d20893008a8fa6e6b33d220b2a6cb97268fc8196a53f361d4e0dcd6b1e0232ebaa791706bc187a0709b6a8ab47424dc09ef00491b8aee2c88179346fb5a7349759d23c2728118abcdc342448d58fe7546609864cfa4c9c55a2b6e618a1629fe86d7c0e8c0ac8d0d85b6b76e8bbec7eec8a09e65a5f011efb7a4d568c09f24da4c1b3babf0579f20605c94b23be8eadc4046877c29be900a7043c2da4faabe98576c0097488413908b9fcf63af3102e1ecdadf11812e1b97e5e664324d9a978c50546ea8470d8ec6a2d909ee489c727abb30b8c6d965838ce4b4acb1e5a0d2777bb654b403115167324f98ee6a1da607d4d91162c88b325e6799cac61a2a6b189ccb8c1348edf8f57f92240983fc194d5b6159265c6acbaf14968dad7ba962ee1a86e9f264eacbcc414f38e1bf482cb29143f831e5066e40415f836b7d0b31c6db0e49307764dd3b82d4eef91af44f3aca8006869ab02c75d0108f0a74b7eac6bdce6ee9f39c78574d1434c3ddc3a355d99445edef5d7012e034772ef4f7fabfc40f2691ae7df1df19ceeeea99dc450bf53d976eeb57a1822e72e689632c3fbae445bb2b15b47cb9e14143e1964ce8ba14a1f9bd6766a1c7ec08ff6a5bd94851e24cf26088712ace255d7ae24d5e4b5c0d818c7a5566bd5adb08ef330af4c0b364fadf70483366cb&access_code=AVVN05LG82AH39NVHA">
+            </iframe>
+    </center>
+    <script type="text/javascript">
+        $(document).ready(function(){
+                $('iframe#paymentFrame').load(function() {
+                window.addEventListener('message', function(e) {
+                    $("#paymentFrame").css("height",e.data['newHeight']+'px');  
+                }, false);
+            }); 
+        });
+    </script>
+</body>
+</html>

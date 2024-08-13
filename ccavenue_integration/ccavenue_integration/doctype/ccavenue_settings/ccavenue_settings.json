@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-22 14:33:38.115770",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "enable",
+  "section_break_i6kf6",
+  "access_code",
+  "working_key",
+  "merchant_code",
+  "redirect_url",
+  "cancel_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "access_code",
+   "fieldtype": "Data",
+   "label": "Access Code"
+  },
+  {
+   "fieldname": "working_key",
+   "fieldtype": "Data",
+   "label": "Working Key"
+  },
+  {
+   "fieldname": "merchant_code",
+   "fieldtype": "Data",
+   "label": "MERCHANT_CODE"
+  },
+  {
+   "fieldname": "redirect_url",
+   "fieldtype": "Data",
+   "label": "REDIRECT_URL"
+  },
+  {
+   "fieldname": "cancel_url",
+   "fieldtype": "Data",
+   "label": "CANCEL_URL"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable",
+   "fieldtype": "Check",
+   "label": "Enable"
+  },
+  {
+   "depends_on": "eval:doc.enable == 1;",
+   "fieldname": "section_break_i6kf6",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-07-26 13:12:33.389932",
+ "modified_by": "Administrator",
+ "module": "CCAvenue Integration",
+ "name": "CCAvenue Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
