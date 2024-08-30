@@ -18,7 +18,7 @@ command = "orderStatusTracker"
 
 def get_status_data():
     form_data = {
-        "order_no":"SAL-QTN-2024-00024"
+        "order_no":"2248473817",
     }
     ccavenue = CCAvenue(WORKING_KEY, ACCESS_CODE, MERCHANT_CODE, REDIRECT_URL, CANCEL_URL)
     key = WORKING_KEY

@@ -29,5 +29,10 @@ def before_submit(self, method):
                 "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
             }
         response = ccav_request_handler(form_data)
-        response = json.loads(response)
-        self.custom_payment_url = response.get('tiny_url')
+        try:
+            response = json.loads(response)
+            self.custom_payment_url = response.get('tiny_url')
+            self.custom_ccavenue_invoice_id = response.get('invoice_id')
+        except Exception as e:
+            frappe.log_error(e)
+            
