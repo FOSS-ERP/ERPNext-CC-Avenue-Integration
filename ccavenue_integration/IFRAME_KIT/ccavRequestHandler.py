@@ -48,6 +48,7 @@ def ccav_request_handler(form_data):
         }
         try:
             response = requests.post(url, data=payload, headers={})
+            print("CCAvenue :" response)
             response = response.text.split('=')[2]
             data = decrypt(response, key)
             return data
