@@ -52,6 +52,7 @@ def ccav_request_handler(form_data):
             data = decrypt(response, key)
             return data
         except Exception as e:
+            frappe.log_error(response)
             frappe.log_error(e)
 
 
