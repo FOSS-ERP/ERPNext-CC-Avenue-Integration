@@ -65,10 +65,10 @@ def test_ccavenue(quotation):
             }
         response = ccav_request_handler(form_data)
         try:
+            print(response)
             response = json.loads(response)
             custom_payment_url = response.get('tiny_url')
             custom_ccavenue_invoice_id = response.get('invoice_id')
-            print(response)
             print(custom_payment_url)
             print(custom_ccavenue_invoice_id)
         except Exception as e:
