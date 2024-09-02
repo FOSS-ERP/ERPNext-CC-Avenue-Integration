@@ -34,5 +34,6 @@ def before_submit(self, method):
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
         except Exception as e:
+            frappe.log_error(response)
             frappe.log_error(e)
             
