@@ -37,7 +37,7 @@ def before_submit(self, method):
             frappe.log_error(response)
             frappe.log_error(e)
 
-def before_submit(quotation):
+def test_ccavenue(quotation):
     if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
         doc = frappe.get_doc("CCAvenue Settings")
         form_data = {
