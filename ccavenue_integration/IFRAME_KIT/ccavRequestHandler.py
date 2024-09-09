@@ -36,7 +36,7 @@ def ccav_request_handler(form_data):
 
         import requests
 
-        url = "https://apitest.ccavenue.com/apis/servlet/DoWebTrans"
+        url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
         print(ACCESS_CODE)
         payload = {
             "request_type": "JSON",
