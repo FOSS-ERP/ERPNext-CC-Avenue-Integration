@@ -28,6 +28,7 @@ def before_submit(self, method):
                 "discount_type": "Perc",
                 "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
             }
+        form_data = json.dumps(form_data)
         response = ccav_request_handler(form_data)
         try:
             response = json.loads(response)
