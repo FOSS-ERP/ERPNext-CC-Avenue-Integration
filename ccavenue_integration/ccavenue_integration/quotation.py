@@ -37,29 +37,24 @@ def test_ccavenue(quotation):
     if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
         doc = frappe.get_doc("CCAvenue Settings")
         form_data = {
-                "merchant_id": doc.merchant_code,
-                "customer_id": quotation.get("party_name"),
-                "customer_name": quotation.get("customer_name"),
-                "customer_email_id": quotation.get("contact_email"),
+                "customer_id": quotation.party_name,
+                "customer_name": quotation.customer_name,
+                "customer_email_id": quotation.contact_email,
                 "customer_email_subject": "Quotation",
                 "valid_for": 2,
                 "valid_type": "days",
-                "currency": quotation.get("currency"),
-                "bill_delivery_type":"EMAIL",
-                "amount": quotation.get("grand_total"),
-                "customer_mobile_no": quotation.get("contact_mobile"),
-                "merchant_reference_no": quotation.get("name"),
-                "sub_acc_id": "sub1",
+                "currency": quotation.currency,
+                "amount": quotation.grand_total,
+                "merchant_reference_no": quotation.name,
+                "merchant_reference_no1": quotation.name,
+                "merchant_reference_no2": quotation.name,
+                "merchant_reference_no3": quotation.name,
+                "merchant_reference_no4": quotation.name,
+                "sub_acc_id": "",
                 "terms_and_conditions": "terms and condition",
-                "due_date": "3",
-                "late_payment_fees": "0",
-                "late_payment_fees_type": "Perc",
-                "discount_if_paid_within_due_date": "4",
-                "discount_value": "0",
-                "discount_type": "Perc",
                 "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
             }
-        response = ccav_request_handler(quotation)
+        response = ccav_request_handler(form_data)
         try:
             print(response)
             response = json.loads(response)
