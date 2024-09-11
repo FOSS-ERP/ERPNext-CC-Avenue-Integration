@@ -35,7 +35,7 @@ def ccav_request_handler(form_data):
         encrypted_data = encrypt(form_data, key)
 
         import requests
-
+        print("enc : " , encrypted_data)
         url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
         print(ACCESS_CODE)
         payload = {
@@ -50,6 +50,7 @@ def ccav_request_handler(form_data):
             response = requests.post(url, data=payload, headers={})
             print("CCAvenue :", response)
             response = response.text.split('=')[2]
+            print(response)
             data = decrypt(response, key)
             return data
         except Exception as e:
