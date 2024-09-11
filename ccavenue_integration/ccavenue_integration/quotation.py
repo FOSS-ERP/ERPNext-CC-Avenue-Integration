@@ -50,7 +50,7 @@ def test_ccavenue(quotation):
                 "merchant_reference_no2": quotation.name,
                 "merchant_reference_no3": quotation.name,
                 "merchant_reference_no4": quotation.name,
-                "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
+                "sms_content": "Pls call 022-2121212121topayyour LegalEntity_Namebill# Invoice_ID for Invoice_CurrencyInvoice_AmountorpayonlineatPay_Link."
             }
         print(form_data)
         response = ccav_request_handler(form_data)
