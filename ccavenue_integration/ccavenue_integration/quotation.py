@@ -43,6 +43,7 @@ def test_ccavenue(quotation):
                 "customer_email_subject": "Quotation",
                 "valid_for": 2,
                 "valid_type": "days",
+                "bill_delivery_type":"EMAIL",
                 "currency": quotation.currency,
                 "amount": quotation.grand_total,
                 "merchant_reference_no": quotation.name,
