@@ -39,6 +39,7 @@ def test_ccavenue(quotation):
         form_data = {
                 "customer_name": quotation.customer_name,
                 "customer_email_id": quotation.contact_email,
+                "customer_mobile_no":"7990225354",
                 "customer_email_subject": "Quotation",
                 "valid_for": 2,
                 "valid_type": "days",
