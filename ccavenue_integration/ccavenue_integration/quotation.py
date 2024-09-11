@@ -37,7 +37,6 @@ def test_ccavenue(quotation):
     if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
         doc = frappe.get_doc("CCAvenue Settings")
         form_data = {
-                "customer_id": quotation.party_name,
                 "customer_name": quotation.customer_name,
                 "customer_email_id": quotation.contact_email,
                 "customer_email_subject": "Quotation",
@@ -51,10 +50,9 @@ def test_ccavenue(quotation):
                 "merchant_reference_no2": quotation.name,
                 "merchant_reference_no3": quotation.name,
                 "merchant_reference_no4": quotation.name,
-                "sub_acc_id": "",
-                "terms_and_conditions": "terms and condition",
                 "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
             }
+        print(form_data)
         response = ccav_request_handler(form_data)
         try:
             print(response)
