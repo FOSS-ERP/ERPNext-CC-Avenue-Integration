@@ -59,7 +59,7 @@ def test_ccavenue(quotation):
                 "discount_type": "Perc",
                 "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
             }
-        response = ccav_request_handler(form_data)
+        response = ccav_request_handler(quotation)
         try:
             print(response)
             response = json.loads(response)
