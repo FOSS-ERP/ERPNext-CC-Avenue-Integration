@@ -25,9 +25,9 @@ def get_status_data():
         MERCHANT_CODE = doc.merchant_code
         REDIRECT_URL = doc.redirect_url
         CANCEL_URL = doc.cancel_url
-        
+
         form_data = {
-            "order_no":"4467687448",
+            "order_no":"4467950764",
         }
         ccavenue = CCAvenue(WORKING_KEY, ACCESS_CODE, MERCHANT_CODE, REDIRECT_URL, CANCEL_URL)
         key = WORKING_KEY
