@@ -6,12 +6,12 @@ def before_submit(self, method):
     if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
         doc = frappe.get_doc("CCAvenue Settings")
         form_data = {
-                "customer_id": self.party_name,
                 "customer_name": self.customer_name,
                 "customer_email_id": self.contact_email,
                 "customer_email_subject": "Quotation",
                 "valid_for": 2,
                 "valid_type": "days",
+                "bill_delivery_type":"EMAIL",
                 "currency": self.currency,
                 "amount": self.grand_total,
                 "merchant_reference_no": self.name,
@@ -19,9 +19,6 @@ def before_submit(self, method):
                 "merchant_reference_no2": self.name,
                 "merchant_reference_no3": self.name,
                 "merchant_reference_no4": self.name,
-                "sub_acc_id": "",
-                "terms_and_conditions": "terms and condition",
-                "sms_content": "PlspayyourLegalEntity_Namebill#Invoice_IDforInvoice_Currency Invoice_Amount online at Pay_Link."
             }
         form_data = json.dumps(form_data)
         response = ccav_request_handler(form_data)
