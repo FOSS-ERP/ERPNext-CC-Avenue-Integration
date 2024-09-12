@@ -8,15 +8,15 @@ from frappe.utils import now
 from pay_ccavenue import CCAvenue
 
 
-access_code = 'AVVN05LG82AH39NVHA'
-WORKING_KEY = '44A32D0608BE8D3263A9D0F4E859592E' 
-ACCESS_CODE = 'AVVN05LG82AH39NVHA'
-MERCHANT_CODE = '2689730'
-REDIRECT_URL = "https://bc.fosscrm.com/api/method/.ccavenue_integration.IFRAME_KIT.ccavRequestHandler.ccav_response_handler"
-CANCEL_URL = "https://bc.fosscrm.com/api/method/.ccavenue_integration.IFRAME_KIT.ccavRequestHandler.ccav_response_handler"
-command = "orderStatusTracker"
 
-def get_status_data():
+def update_payment_status():
+    data = frappe.db.sql(f"""
+                Select name, custom_ccavenue_invoice_id
+                From `tabQuotation` 
+                Where
+    """, as_dict=1)
+
+def get_status_data(custom_ccavenue_invoice_id):
     doc = frappe.get_doc("CCAvenue Settings")
     if doc.enable:
         access_code = doc.access_code
@@ -25,9 +25,12 @@ def get_status_data():
         MERCHANT_CODE = doc.merchant_code
         REDIRECT_URL = doc.redirect_url
         CANCEL_URL = doc.cancel_url
+        command = "orderStatusTracker"
+
+
 
         form_data = {
-            "order_no":"4467960569",
+            "order_no": custom_ccavenue_invoice_id,
         }
         ccavenue = CCAvenue(WORKING_KEY, ACCESS_CODE, MERCHANT_CODE, REDIRECT_URL, CANCEL_URL)
         key = WORKING_KEY
