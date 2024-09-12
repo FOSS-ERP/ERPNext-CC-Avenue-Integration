@@ -17,33 +17,42 @@ CANCEL_URL = "https://bc.fosscrm.com/api/method/.ccavenue_integration.IFRAME_KIT
 command = "orderStatusTracker"
 
 def get_status_data():
-    form_data = {
-        "order_no":"2248473817",
-    }
-    ccavenue = CCAvenue(WORKING_KEY, ACCESS_CODE, MERCHANT_CODE, REDIRECT_URL, CANCEL_URL)
-    key = WORKING_KEY
-            
-    encrypted_data = encrypt(form_data, key)
+    doc = frappe.get_doc("CCAvenue Settings")
+    if doc.enable:
+        access_code = doc.access_code
+        WORKING_KEY = doc.working_key
+        ACCESS_CODE = doc.access_code
+        MERCHANT_CODE = doc.merchant_code
+        REDIRECT_URL = doc.redirect_url
+        CANCEL_URL = doc.cancel_url
+        
+        form_data = {
+            "order_no":"4467687448",
+        }
+        ccavenue = CCAvenue(WORKING_KEY, ACCESS_CODE, MERCHANT_CODE, REDIRECT_URL, CANCEL_URL)
+        key = WORKING_KEY
+                
+        encrypted_data = encrypt(form_data, key)
 
-    import requests
+        import requests
 
-    url = "https://apitest.ccavenue.com/apis/servlet/DoWebTrans"
+        url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
 
-    payload = {
-        "request_type": "JSON",
-        "access_code": ACCESS_CODE,
-        "command": command,
-        "version": "1.2",
-        "response_type": "JSON",
-        "enc_request": encrypted_data
-    }
-    
-    response = requests.post(url, data=payload, headers={})
+        payload = {
+            "request_type": "JSON",
+            "access_code": ACCESS_CODE,
+            "command": command,
+            "version": "1.2",
+            "response_type": "JSON",
+            "enc_request": encrypted_data
+        }
+        
+        response = requests.post(url, data=payload, headers={})
 
-    print(response)
+        print(response)
 
-    response = response.text.split('=')[2]
+        response = response.text.split('=')[2]
 
-    data = decrypt(response, key)
+        data = decrypt(response, key)
 
-    return data
+        return data
