@@ -18,7 +18,8 @@ def update_payment_status():
 
     for row in data:
         responce = get_status_data(row.custom_ccavenue_invoice_id)
-        print(responce)
+        if responce.get("order_no") == row.custom_ccavenue_invoice_id:
+            frappe.db.set_value("Quotation", row.name, "custom_ccavenue_invoice_id", "Paid")
 
 def get_status_data(custom_ccavenue_invoice_id):
     doc = frappe.get_doc("CCAvenue Settings")
