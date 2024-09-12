@@ -56,8 +56,6 @@ def get_status_data(custom_ccavenue_invoice_id):
         
         response = requests.post(url, data=payload, headers={})
 
-        print(response)
-
         response = response.text.split('=')[2]
 
         data = decrypt(response, key)
