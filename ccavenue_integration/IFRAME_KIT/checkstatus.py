@@ -13,8 +13,12 @@ def update_payment_status():
     data = frappe.db.sql(f"""
                 Select name, custom_ccavenue_invoice_id
                 From `tabQuotation` 
-                Where
+                Where docstatus = 1 and custom_payment_status = "Unpaid"
     """, as_dict=1)
+
+    for row in data:
+        responce = get_status_data(row.custom_ccavenue_invoice_id)
+        print(responce)
 
 def get_status_data(custom_ccavenue_invoice_id):
     doc = frappe.get_doc("CCAvenue Settings")
