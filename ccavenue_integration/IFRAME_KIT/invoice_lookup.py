@@ -24,13 +24,6 @@ def get_parameters():
         "page_count": "1"
         }
 
-    # form_data = {
-    #     "to_date" : getdate(),
-    #     "invoice_no" : doc.name,
-    #     "reference_no" : doc.custom_ccavenue_invoice_id,
-    #     "page_no":1
-    # }
-
     doc = frappe.get_doc("CCAvenue Settings")
     if doc.enable:
         access_code = doc.access_code
@@ -71,6 +64,7 @@ def get_parameters():
             print(response)
             
             data = decrypt(response, key)
+            
             return data
         except Exception as e:
             frappe.log_error(response)
