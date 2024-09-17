@@ -12,12 +12,12 @@ def get_parameters():
     doc = frappe.get_doc("Quotation", "SAL-QTN-2024-00015")
 
     form_data = {
-        "from_date" : "17-07-2024",
-        "to_date" : "17-09-2024",
-        "invoice_no" : doc.name,
-        "reference_no" : doc.custom_ccavenue_invoice_id,
-        "page_no":1
-    }
+        "from_date":"10-10-2014",
+        "to_date":"11-10-2014",
+        "invoice_id":"4467960569",
+        "invoice_no":"SAL-QTN-2024-0001",
+        "page_count":"1"
+        }
 
     # form_data = {
     #     "to_date" : getdate(),
