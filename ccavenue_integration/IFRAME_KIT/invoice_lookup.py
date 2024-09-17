@@ -20,7 +20,7 @@ def get_parameters():
     form_data = {
         "from_date": from_date,
         "to_date": to_date,
-        "invoice_id": "4486111418",
+        "invoice_id": doc.custom_ccavenue_invoice_id,
         "page_count": "1"
         }
 
