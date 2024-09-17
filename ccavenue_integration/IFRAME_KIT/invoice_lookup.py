@@ -5,17 +5,23 @@ import json
 from ccavenue_integration.IFRAME_KIT.ccavutil import encrypt , decrypt
 from pay_ccavenue import CCAvenue
 from Crypto.Random import get_random_bytes
+from datetime import datetime
+
 # ccavenue.py
 
 
 def get_parameters():
     doc = frappe.get_doc("Quotation", "SAL-QTN-2024-00015")
 
+    from_date = doc.transaction_date.strftime('%d-%m-%Y')
+
+    to_date = getdate().strftime('%d-%m-%Y')
+
     form_data = {
-        "from_date":"10-10-2014",
-        "to_date":"11-10-2024",
-        "reference_no":"4486111418",
-        "page_count":"1"
+        "from_date": from_date,
+        "to_date": to_date,
+        "reference_no": "4486111418",
+        "page_count": "1"
         }
 
     # form_data = {
