@@ -12,11 +12,18 @@ def get_parameters():
     doc = frappe.get_doc("Quotation", "SAL-QTN-2024-00015")
 
     form_data = {
-        "to_date" : getdate(),
+        "to_date" : "17-09-2014",
         "invoice_no" : doc.name,
         "reference_no" : doc.custom_ccavenue_invoice_id,
         "page_no":1
     }
+
+    # form_data = {
+    #     "to_date" : getdate(),
+    #     "invoice_no" : doc.name,
+    #     "reference_no" : doc.custom_ccavenue_invoice_id,
+    #     "page_no":1
+    # }
 
     doc = frappe.get_doc("CCAvenue Settings")
     if doc.enable:
