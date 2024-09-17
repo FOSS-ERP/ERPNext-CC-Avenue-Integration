@@ -42,7 +42,6 @@ def get_parameters():
             "request_type": "JSON",
             "access_code": ACCESS_CODE,
             "command": "invoiceList",
-            "version": "1.0",
             "response_type": "JSON",
             "enc_request": encrypted_data
         }
