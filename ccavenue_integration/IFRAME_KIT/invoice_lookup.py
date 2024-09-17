@@ -11,7 +11,7 @@ from Crypto.Random import get_random_bytes
 def get_parameters():
     doc = frappe.get_doc("Quotation", "SAL-QTN-2024-00015")
 
-    data = {
+    form_data = {
         "to_date" : getdate(),
         "invoice_no" : doc.name,
         "reference_no" : doc.custom_ccavenue_invoice_id,
