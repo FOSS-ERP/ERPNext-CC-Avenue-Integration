@@ -41,7 +41,7 @@ def get_parameters():
         payload = {
             "request_type": "JSON",
             "access_code": ACCESS_CODE,
-            "command": "“invoiceList",
+            "command": "invoiceList",
             "version": "1.2",
             "response_type": "JSON",
             "enc_request": encrypted_data
