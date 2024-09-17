@@ -14,7 +14,6 @@ def get_parameters():
     form_data = {
         "from_date":"10-10-2014",
         "to_date":"11-10-2014",
-        "invoice_id":"SAL-QTN-2024-00016",
         "reference_no":"4486111418",
         "page_count":"1"
         }
