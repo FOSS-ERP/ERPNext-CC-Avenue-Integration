@@ -13,7 +13,7 @@ def update_payment_status():
     data = frappe.db.sql(f"""
                 Select name, custom_ccavenue_invoice_id
                 From `tabQuotation` 
-                Where docstatus = 1 and custom_payment_status = "Unpaid"
+                Where docstatus = 1 and custom_payment_status = "Panding"
     """, as_dict=1)
 
     for row in data:
