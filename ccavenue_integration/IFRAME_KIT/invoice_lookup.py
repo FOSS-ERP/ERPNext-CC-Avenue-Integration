@@ -64,14 +64,12 @@ def get_parameters():
                 
                 response = response.text.split('=')[2]
                 
-                print(response)
-                
                 data = decrypt(response, key)
                 
                 json_data = json.loads(data)
 
 
-                print(json_data)
+                print(json_data.get('invoice_List').get("invoice_status"))
             except Exception as e:
                 frappe.log_error(response)
                 frappe.log_error(e)
