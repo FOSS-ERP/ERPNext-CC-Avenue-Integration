@@ -71,7 +71,7 @@ def get_parameters():
                 json_data = json.loads(data)
 
 
-                return json_data
+                print(json_data)
             except Exception as e:
                 frappe.log_error(response)
                 frappe.log_error(e)
