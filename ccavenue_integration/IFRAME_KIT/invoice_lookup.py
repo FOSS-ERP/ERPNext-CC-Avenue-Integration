@@ -6,6 +6,7 @@ from ccavenue_integration.IFRAME_KIT.ccavutil import encrypt , decrypt
 from pay_ccavenue import CCAvenue
 from Crypto.Random import get_random_bytes
 from datetime import datetime
+from erpnext.selling.doctype.quotation.quotation import make_sales_order
 
 # ccavenue.py
 
@@ -66,6 +67,16 @@ def get_parameters():
                 json_data = json.loads(data)
 
                 print(json_data.get('invoice_List')[0].get("invoice_status"))
+                print(json_data.get('invoice_List')[0].get("order_Gross_Amt"))
+
+                order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
+                invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
+
+                if order_Gross_Amt or invoice_status == "Successful":
+                    so = make_sales_order(source_name = row)
+                    so.payment_schedule[0].due_date = getdate()
+                    so.delivery_date = getdate()
+                    so.save()
             except Exception as e:
                 frappe.log_error(response)
                 frappe.log_error(e)
