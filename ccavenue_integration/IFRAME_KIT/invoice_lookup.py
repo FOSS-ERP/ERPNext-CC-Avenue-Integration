@@ -59,9 +59,6 @@ def get_parameters():
             try:
                 response = requests.post(url, data=payload, headers={})
                 
-                print("CCAvenue :", response)
-                print("text : ", response.text)
-                
                 response = response.text.split('=')[2]
                 
                 data = decrypt(response, key)
