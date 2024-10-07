@@ -68,8 +68,7 @@ def get_parameters():
                 
                 json_data = json.loads(data)
 
-
-                print(json_data.get('invoice_List').get("invoice_status"))
+                print(json_data.get('invoice_List')[0].get("invoice_status"))
             except Exception as e:
                 frappe.log_error(response)
                 frappe.log_error(e)
