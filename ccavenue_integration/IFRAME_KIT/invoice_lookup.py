@@ -12,11 +12,12 @@ from erpnext.selling.doctype.quotation.quotation import make_sales_order
 
 
 def get_parameters():
-    get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Unpaid", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
+    get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Pending", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
 
     for row in get_quotation_list:
         doc = frappe.get_doc("Quotation", row)
-
+        if not custom_ccavenue_invoice_id:
+            continue
         from_date = doc.transaction_date.strftime('%d-%m-%Y')
 
         to_date = getdate().strftime('%d-%m-%Y')
