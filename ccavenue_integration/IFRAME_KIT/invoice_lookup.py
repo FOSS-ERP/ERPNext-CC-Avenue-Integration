@@ -78,7 +78,9 @@ def get_parameters():
                     so.payment_schedule[0].due_date = getdate()
                     so.delivery_date = getdate()
                     so.save()
+                    so.submit()
                     frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
+                    frappe.db.commit()
             except Exception as e:
                 frappe.log_error(response)
                 frappe.log_error(e)
