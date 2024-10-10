@@ -16,7 +16,7 @@ def get_parameters():
 
     for row in get_quotation_list:
         doc = frappe.get_doc("Quotation", row)
-        if not custom_ccavenue_invoice_id:
+        if not doc.custom_ccavenue_invoice_id:
             continue
         from_date = doc.transaction_date.strftime('%d-%m-%Y')
 
