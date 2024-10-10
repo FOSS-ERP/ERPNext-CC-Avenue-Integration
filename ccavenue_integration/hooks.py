@@ -142,7 +142,11 @@ doc_events = {
 # 		"ccavenue_integration.tasks.monthly"
 # 	],
 # }
-
+scheduler_events = {
+	"cron" : {
+		"*/30 * * * *" : "ccavenue_integration.IFRAME_KIT.invoice_lookup.get_parameters"
+	}
+}
 # Testing
 # -------
 
