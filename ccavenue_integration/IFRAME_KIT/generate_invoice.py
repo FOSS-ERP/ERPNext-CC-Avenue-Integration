@@ -10,7 +10,7 @@ def get_quotation(doc):
             "customer_mobile_no": doc.contact_mobile,
             "valid_for": 5,
             "valid_type": "days",
-            "due_date" : str(doc.valid_till), 
+            "due_date" : get_date_format(str(doc.valid_till)), 
             "bill_delivery_type":"EMAIL",
             "currency": doc.currency,
             "amount": doc.grand_total,
@@ -36,3 +36,37 @@ def get_quotation(doc):
     response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
+
+
+
+def get_date_format(date_str)
+    from datetime import datetime
+
+
+    # Convert to datetime object
+    date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+
+    day_with_suffix = add_ordinal_suffix(date_obj.day)
+
+    # Format the date to "15th Jan 2024"
+    formatted_date = f"{day_with_suffix} {date_obj.strftime('%b %Y')}"
+
+    return formatted_date
+
+
+def add_ordinal_suffix(day):
+    if 11 <= day <= 13:
+        return f"{day}th"
+    last_digit = day % 10
+    if last_digit == 1:
+        return f"{day}st"
+    elif last_digit == 2:
+        return f"{day}nd"
+    elif last_digit == 3:
+        return f"{day}rd"
+    else:
+        return f"{day}th"
+
+# Get day with ordinal suffix
+
+
