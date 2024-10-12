@@ -2,7 +2,7 @@ import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
 
-def get_quotation(doc):
+def get_quotation(doc, due_date):
     form_data = {
             "customer_name": doc.customer_name,
             "customer_email_id": doc.contact_email,
@@ -10,7 +10,7 @@ def get_quotation(doc):
             "customer_mobile_no": doc.contact_mobile,
             "valid_for": 5,
             "valid_type": "days",
-            "due_date" : "15/11/2024", 
+            "due_date" : due_date, 
             "bill_delivery_type":"EMAIL",
             "currency": doc.currency,
             "amount": doc.grand_total,
