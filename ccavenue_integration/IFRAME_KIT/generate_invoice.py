@@ -10,7 +10,7 @@ def get_quotation(doc):
             "customer_mobile_no": doc.contact_mobile,
             "valid_for": 5,
             "valid_type": "days",
-            "due_date" : get_date_format(str(doc.valid_till)), 
+            "due_date" : "015", 
             "bill_delivery_type":"EMAIL",
             "currency": doc.currency,
             "amount": doc.grand_total,
