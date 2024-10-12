@@ -18,7 +18,7 @@ def ccav_response_handler():
     return plain_text
 
 @frappe.whitelist(allow_guest=True)
-def ccav_request_handler(form_data):
+def ccav_request_handler(form_data, command):
     doc = frappe.get_doc("CCAvenue Settings")
     if doc.enable:
         access_code = doc.access_code
@@ -41,7 +41,7 @@ def ccav_request_handler(form_data):
         payload = {
             "request_type": "JSON",
             "access_code": ACCESS_CODE,
-            "command": "generateQuickInvoice",
+            "command": command,
             "version": "1.2",
             "response_type": "JSON",
             "enc_request": encrypted_data

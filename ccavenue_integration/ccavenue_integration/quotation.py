@@ -21,7 +21,7 @@ def before_submit(self, method):
                 "merchant_reference_no4": self.name,
             }
         form_data = json.dumps(form_data)
-        response = ccav_request_handler(form_data)
+        response = ccav_request_handler(form_data, "generateQuickInvoice")
         try:
             response = json.loads(response)
             self.custom_payment_url = response.get('tiny_url')
