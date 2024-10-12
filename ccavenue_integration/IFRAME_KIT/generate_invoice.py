@@ -39,7 +39,7 @@ def get_quotation(doc):
 
 
 
-def get_date_format(date_str)
+def get_date_format(date_str):
     from datetime import datetime
 
 
