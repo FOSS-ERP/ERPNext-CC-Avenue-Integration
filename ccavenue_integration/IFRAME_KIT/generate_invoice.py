@@ -3,7 +3,6 @@ from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_hand
 import json
 
 def get_quotation(doc):
-    doc = frappe.get_doc("CCAvenue Settings")
     form_data = {
             "customer_name": doc.customer_name,
             "customer_email_id": doc.contact_email,
