@@ -35,9 +35,9 @@ def ccav_request_handler(form_data, command):
         encrypted_data = encrypt(form_data, key)
 
         import requests
-        print("enc : " , encrypted_data)
+        # print("enc : " , encrypted_data)
         url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
-        print(ACCESS_CODE)
+        # print(ACCESS_CODE)
         payload = {
             "request_type": "JSON",
             "access_code": ACCESS_CODE,
@@ -48,10 +48,10 @@ def ccav_request_handler(form_data, command):
         }
         try:
             response = requests.post(url, data=payload, headers={})
-            print("CCAvenue :", response)
-            print("text : ", response.text)
+            # print("CCAvenue :", response)
+            # print("text : ", response.text)
             response = response.text.split('=')[2]
-            print(response)
+            # print(response)
             data = decrypt(response, key)
             return data
         except Exception as e:
