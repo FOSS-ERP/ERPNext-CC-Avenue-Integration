@@ -29,7 +29,10 @@ def get_quotation(doc, due_date):
             "description" : row.description,
             "quantity" : row.qty,
             "unit_cost"  : row.rate,
-            "tax_List" : []
+            "tax_List" : [
+                {"name": "STG Tax","amount": "0"},
+                {"name": "Rent Tax","amount": "0"}    
+            ]
          })
     form_data.update({'item_List' : item_List})
 
