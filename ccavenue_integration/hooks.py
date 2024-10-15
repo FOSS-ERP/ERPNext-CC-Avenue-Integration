@@ -144,7 +144,7 @@ doc_events = {
 # }
 scheduler_events = {
 	"cron" : {
-		"*/30 * * * *" : "ccavenue_integration.IFRAME_KIT.invoice_lookup.get_parameters"
+		"*/10 * * * *" : "ccavenue_integration.IFRAME_KIT.invoice_lookup.get_parameters"
 	}
 }
 # Testing
