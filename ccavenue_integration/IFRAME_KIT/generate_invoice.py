@@ -20,7 +20,7 @@ def get_quotation(doc, due_date):
             "merchant_reference_no3": doc.name,
             "merchant_reference_no4": doc.name,
             "late_payment_fees_type": "Flat",
-            "late_payment_fees":0
+            "late_payment_fees":1
         }
     item_List = []
     for row in doc.items:
