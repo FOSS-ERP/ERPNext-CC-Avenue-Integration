@@ -45,7 +45,6 @@ def get_parameters():
             encrypted_data = encrypt(form_data, key)
 
             import requests
-            print("enc : " , encrypted_data)
             
             url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
 
@@ -68,6 +67,7 @@ def get_parameters():
                 json_data = json.loads(data)
 
                 print(json_data.get('invoice_List')[0].get("invoice_status"))
+                print(row)
                 print(json_data.get('invoice_List')[0].get("order_Gross_Amt"))
 
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
