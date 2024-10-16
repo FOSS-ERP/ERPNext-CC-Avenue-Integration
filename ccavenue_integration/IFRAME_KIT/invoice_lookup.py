@@ -74,6 +74,7 @@ def get_parameters():
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
 
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
+                    print("SO- {0}".format(row))
                     so = make_sales_order(source_name = row)
                     so.payment_schedule[0].due_date = getdate()
                     so.delivery_date = getdate()
