@@ -85,7 +85,6 @@ def get_parameters():
                 if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
                     frappe.db.set_value("Quotation", row, 'payment_status', invoice_status)
             except Exception as e:
-                frappe.log_error(response)
                 frappe.log_error(e)
 
 
