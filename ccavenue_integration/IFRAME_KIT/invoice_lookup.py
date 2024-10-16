@@ -74,15 +74,15 @@ def get_parameters():
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
 
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
-                    print("SO- {0}".format(row))
-                    so = make_sales_order(source_name = row)
-                    so.payment_schedule[0].due_date = getdate()
-                    so.delivery_date = getdate()
-                    so.save()
-                    so.submit()
-                    frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
-                    frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
-                    frappe.db.commit()
+                    if frappe.db.get_value("Quotation", row, 'status') != "Ordered":
+                        so = make_sales_order(source_name = row)
+                        so.payment_schedule[0].due_date = getdate()
+                        so.delivery_date = getdate()
+                        so.save()
+                        so.submit()
+                        frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
+                        frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
+                        frappe.db.commit()
                 if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
                     frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                     frappe.db.commit()
