@@ -80,10 +80,10 @@ def get_parameters():
                     so.save()
                     so.submit()
                     frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
-                    frappe.db.set_value("Quotation", row, 'payment_status', invoice_status)
+                    frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                     frappe.db.commit()
                 if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
-                    frappe.db.set_value("Quotation", row, 'payment_status', invoice_status)
+                    frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                     frappe.db.commit()
             except Exception as e:
                 frappe.log_error(e)
