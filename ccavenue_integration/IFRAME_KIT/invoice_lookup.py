@@ -29,14 +29,14 @@ def get_parameters():
             "page_count": "1"
             }
 
-        doc = frappe.get_doc("CCAvenue Settings")
-        if doc.enable:
-            access_code = doc.access_code
-            WORKING_KEY = doc.working_key
-            ACCESS_CODE = doc.access_code
-            MERCHANT_CODE = doc.merchant_code
-            REDIRECT_URL = doc.redirect_url
-            CANCEL_URL = doc.cancel_url
+        cc_doc = frappe.get_doc("CCAvenue Settings")
+        if cc_doc.enable:
+            access_code = cc_doc.access_code
+            WORKING_KEY = cc_doc.working_key
+            ACCESS_CODE = cc_doc.access_code
+            MERCHANT_CODE = cc_doc.merchant_code
+            REDIRECT_URL = cc_doc.redirect_url
+            CANCEL_URL = cc_doc.cancel_url
 
             my_string = WORKING_KEY
             
@@ -73,7 +73,7 @@ def get_parameters():
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
 
-                if order_Gross_Amt or invoice_status == "Successful":
+                if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
                     so = make_sales_order(source_name = row)
                     so.payment_schedule[0].due_date = getdate()
                     so.delivery_date = getdate()
@@ -82,6 +82,8 @@ def get_parameters():
                     frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
                     frappe.db.set_value("Quotation", row, 'payment_status', invoice_status)
                     frappe.db.commit()
+                if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
+                    frappe.db.set_value("Quotation", row, 'payment_status', invoice_status)
             except Exception as e:
                 frappe.log_error(response)
                 frappe.log_error(e)
