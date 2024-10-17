@@ -47,7 +47,7 @@ def get_items():
         print(json_data["Invoice_Item_Result"]["item_List"]["item"])
 
         for row in json_data["Invoice_Item_Result"]["item_List"]["item"]:
-            if frappe.db.exists("Item", row.get('name')):
+            if frappe.db.exists("Item", row.name):
                 continue
             else:
                 print(row.name)
