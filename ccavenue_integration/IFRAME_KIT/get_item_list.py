@@ -37,13 +37,10 @@ def get_items():
             "enc_request": encrypted_data
         }
 
-        try:
-            response = requests.post(url, data=payload, headers={})
-        
-            response = response.text.split('=')[2]
+    
+        response = requests.post(url, data=payload, headers={})
+    
+        response = response.text.split('=')[2]
 
-            data = decrypt(response, key)
-            return data
-        except Exception as e:
-            frappe.log_error(response)
-            frappe.log_error(e)
+        data = decrypt(response, key)
+        return data
