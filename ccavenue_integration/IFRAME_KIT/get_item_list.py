@@ -37,7 +37,7 @@ def get_items():
             "enc_request": encrypted_data
         }
 
-    
+        import requests
         response = requests.post(url, data=payload, headers={})
     
         response = response.text.split('=')[2]
