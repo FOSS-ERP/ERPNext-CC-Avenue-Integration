@@ -32,9 +32,7 @@ def get_items():
             "request_type": "JSON",
             "access_code": ACCESS_CODE,
             "command": "getInvoiceItems",
-            "version": "1.2",
             "response_type": "JSON",
-            "enc_request": encrypted_data
         }
 
         import requests
