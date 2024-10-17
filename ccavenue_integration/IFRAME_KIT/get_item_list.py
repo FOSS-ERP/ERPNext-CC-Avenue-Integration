@@ -39,8 +39,9 @@ def get_items():
 
         import requests
         response = requests.post(url, data=payload, headers={})
-    
+        print(response)
         response = response.text.split('=')[2]
 
         data = decrypt(response, key)
+
         return data
