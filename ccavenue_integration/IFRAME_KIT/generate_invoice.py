@@ -23,6 +23,7 @@ def get_quotation(doc, due_date):
             "late_payment_fees":1
         }
     item_List = []
+    taxes = []
     for row in doc.items:
         item_List.append({
             "name" : row.item_code,
@@ -30,7 +31,8 @@ def get_quotation(doc, due_date):
             "quantity" : row.qty,
             "unit_cost"  : row.rate,
             "tax_List" : [
-               
+                {"name": "CGST","amount": "9"},
+                {"name": "SGST","amount": "9"}
             ]
          })
     form_data.update({'item_List' : item_List})
