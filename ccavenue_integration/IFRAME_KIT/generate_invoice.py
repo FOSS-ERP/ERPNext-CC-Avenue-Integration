@@ -7,7 +7,7 @@ def get_quotation(doc, due_date):
                     "customer_name": doc.customer_name,
                     "customer_email_id": doc.contact_email,
                     "customer_email_subject": "Invoice",
-                    "customer_mobile_no": ,doc.contact_mobile,
+                    "customer_mobile_no": doc.contact_mobile,
                     "currency": "INR",
                     "valid_for": "2",
                     "valid_type": "days"
