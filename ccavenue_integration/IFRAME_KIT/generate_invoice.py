@@ -20,8 +20,12 @@ def get_quotation(doc, due_date):
             "merchant_reference_no3": doc.name,
             "merchant_reference_no4": doc.name,
             "late_payment_fees_type": "Flat",
-            "late_payment_fees":1
-        }
+            "late_payment_fees":1,
+            "sub_acc_id":"sub1",
+            "terms_and_conditions": "terms and condition",
+            "sms_content":"Pls pay your LegalEntity_Name bill # Invoice_ID for Invoice_Currency Invoice_Amount online at Pay_Link."
+            }
+
     item_List = []
     taxes = []
     for row in doc.items:
