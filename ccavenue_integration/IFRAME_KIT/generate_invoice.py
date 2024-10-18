@@ -56,7 +56,7 @@ def get_quotation(doc, due_date):
                     "name": "ONDC Onboarding",
                     "description": "ONDC Onboarding",
                     "quantity": "1",
-                    "unit_cost": "100.00",
+                    "unit_cost": "1000.00",
                     "tax_List": [
                         {
                         "name": "CGST",
