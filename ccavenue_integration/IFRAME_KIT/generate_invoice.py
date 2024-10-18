@@ -27,7 +27,7 @@ def get_quotation(doc, due_date):
     for row in doc.items:
         item_List.append({
                 "name": "{0}".format(row.item_code),
-                "description": row.item_code,
+                "description": "{0}".format(row.item_code),,
                 "quantity": "{0}".format(row.qty),
                 "unit_cost": "{0}".format(row.rate),
                 "tax_List": [
