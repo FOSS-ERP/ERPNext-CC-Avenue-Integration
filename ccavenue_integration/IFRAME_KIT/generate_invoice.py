@@ -22,15 +22,15 @@ def get_quotation(doc, due_date):
             "quantity": row.qty,
             "unit_cost": row.rate,
             "tax_List": [
-                {
-                    "name": "CGST",
-                    "amount": (row.rate * row.qty) * 0.09
-                },
-                {
-                    "name": "SGST",
-                    "amount": (row.rate * row.qty) * 0.09
-                }
-            ]
+                    {
+                        "name": "CGST",
+                        "amount": (row.rate * row.qty) * 0.09
+                    },
+                    {
+                        "name": "SGST",
+                        "amount": (row.rate * row.qty) * 0.09
+                    }
+                ]
             }
         )
 
