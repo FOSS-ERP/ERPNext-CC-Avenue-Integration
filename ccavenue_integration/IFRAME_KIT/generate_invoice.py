@@ -33,18 +33,18 @@ def get_quotation(doc, due_date):
                 "tax_List": [
                     {
                     "name": "CGST",
-                    "amount": 9.0
+                    "amount": (row.qty * row.rate * 0.09)
                     },
                     {
                     "name": "SGST",
-                    "amount": 9.0
+                    "amount": (row.qty * row.rate * 0.09)
                     }
                 ]
             })
     form_data.update({"item_List" : item_List})
    
     print(form_data)
-    
+
     response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
