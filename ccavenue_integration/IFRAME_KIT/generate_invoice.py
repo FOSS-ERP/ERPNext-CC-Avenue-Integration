@@ -6,78 +6,80 @@ def get_quotation(doc, due_date):
     form_data = {
             "customer_name": doc.customer_name,
             "customer_email_id": doc.contact_email,
-            "customer_email_subject": "Quotation",
-            "customer_mobile_no": "7990225354",
-            "valid_for": 5,
-            "valid_type": "days",
-            "due_date" : due_date, 
-            "bill_delivery_type":"EMAIL",
+            "customer_email_subject": "Invoice",
+            "customer_mobile_no": doc.contact_mobile,
             "currency": doc.currency,
-            "amount": doc.grand_total,
-            "merchant_reference_no": doc.name,
-            "merchant_reference_no1": doc.name,
-            "merchant_reference_no2": doc.name,
-            "merchant_reference_no3": doc.name,
-            "merchant_reference_no4": doc.name,
-            "late_payment_fees_type": "Flat",
-            "late_payment_fees":1,
-            "sub_acc_id":"sub1",
+            "valid_for": "2",
+            "valid_type": "days",
+            "item_List": [],
+            "merchant_reference": "123456987-SN01",
+            "merchant_reference_no1": "123456987-SN01",
+            "merchant_reference_no2": "123456987-SN01",
+            "merchant_reference_no3": "123456987-SN01",
+            "merchant_reference_no4": "123456987-SN01",
+            "sub_acc_id": "sub1",
             "terms_and_conditions": "terms and condition",
-            "sms_content":"Pls pay your LegalEntity_Name bill # Invoice_ID for Invoice_Currency Invoice_Amount online at Pay_Link."
-            }
+            "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
+        }
 
     item_List = []
     taxes = []
     for row in doc.items:
         item_List.append({
-            "name" : row.item_code,
-            "description" : row.item_name,
-            "quantity" : row.qty,
-            "unit_cost"  : row.rate,
-            "tax_List" : [
-                {"name": "CGST","amount": (row.qty * row.rate) * 0.09},
-                {"name": "SGST","amount": (row.qty * row.rate) * 0.09}
-            ]
-         })
+                "name": row.item_code,
+                "description": row.item_code,
+                "quantity": row.qty,
+                "unit_cost": row.rate,
+                "tax_List": [
+                    {
+                    "name": "CGST",
+                    "amount": 9.0
+                    },
+                    {
+                    "name": "SGST",
+                    "amount": 9.0
+                    }
+                ]
+            })
     form_data.update({'item_List' : item_List})
 
     print(form_data)
 
-    form_data = {
-                "customer_name": "abc",
-                "customer_email_id": "viral@fosserp.com",
-                "customer_email_subject": "Test",
-                "customer_mobile_no": "9874561236",
-                "currency": "INR",
-                "valid_for": "2",
-                "valid_type": "days",
-                "item_List": [
-                    {
-                    "name": "ONDC Onboarding",
-                    "description": "ONDC Onboarding",
-                    "quantity": "1",
-                    "unit_cost": 1000.00,
-                    "tax_List": [
-                        {
-                        "name": "CGST",
-                        "amount": 9.0
-                        },
-                        {
-                        "name": "SGST",
-                        "amount": 9.0
-                        }
-                    ]
-                    }
-                ],
-                "merchant_reference": "123456987-SN01",
-                "merchant_reference_no1": "123456987-SN01",
-                "merchant_reference_no2": "123456987-SN01",
-                "merchant_reference_no3": "123456987-SN01",
-                "merchant_reference_no4": "123456987-SN01",
-                "sub_acc_id": "sub1",
-                "terms_and_conditions": "terms and condition",
-                "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-                }
+    # form_data = {
+    #             "customer_name": "abc",
+    #             "customer_email_id": "viral@fosserp.com",
+    #             "customer_email_subject": "Test",
+    #             "customer_mobile_no": "9874561236",
+    #             "currency": "INR",
+    #             "valid_for": "2",
+    #             "valid_type": "days",
+    #             "item_List": [
+    #                 {
+    #                 "name": "ONDC Onboarding",
+    #                 "description": "ONDC Onboarding",
+    #                 "quantity": "1",
+    #                 "unit_cost": 1000.00,
+    #                 "tax_List": [
+    #                     {
+    #                     "name": "CGST",
+    #                     "amount": 9.0
+    #                     },
+    #                     {
+    #                     "name": "SGST",
+    #                     "amount": 9.0
+    #                     }
+    #                 ]
+    #                 }
+    #             ],
+    #             "merchant_reference": "123456987-SN01",
+    #             "merchant_reference_no1": "123456987-SN01",
+    #             "merchant_reference_no2": "123456987-SN01",
+    #             "merchant_reference_no3": "123456987-SN01",
+    #             "merchant_reference_no4": "123456987-SN01",
+    #             "sub_acc_id": "sub1",
+    #             "terms_and_conditions": "terms and condition",
+    #             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
+    #             }
 
     response = ccav_request_handler(form_data, "generateInvoice")
 
