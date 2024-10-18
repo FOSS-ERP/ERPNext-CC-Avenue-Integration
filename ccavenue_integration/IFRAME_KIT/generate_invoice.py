@@ -41,10 +41,9 @@ def get_quotation(doc, due_date):
                     }
                 ]
             })
-    print(form_data)
-    # form_data.update({"item_List" : item_List})
+    form_data.update({"item_List" : item_List})
 
-    # print(form_data)
+    print(form_data)
 
     # response = ccav_request_handler(form_data, "generateInvoice")
 
