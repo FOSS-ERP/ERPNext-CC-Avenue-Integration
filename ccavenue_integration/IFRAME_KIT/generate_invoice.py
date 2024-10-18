@@ -69,11 +69,11 @@ def get_quotation(doc, due_date):
                     ]
                     }
                 ],
-                "merchant_reference": "123456987",
-                "merchant_reference_no1": 123456987,
-                "merchant_reference_no2": 123456987,
-                "merchant_reference_no3": "123456987",
-                "merchant_reference_no4": "123456987",
+                "merchant_reference": "123456987-SN01",
+                "merchant_reference_no1": 123456987-SN01,
+                "merchant_reference_no2": 123456987-SN01,
+                "merchant_reference_no3": "123456987-SN01",
+                "merchant_reference_no4": "123456987-SN01s",
                 "sub_acc_id": "sub1",
                 "terms_and_conditions": "terms and condition",
                 "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
