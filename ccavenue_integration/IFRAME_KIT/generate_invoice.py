@@ -26,10 +26,10 @@ def get_quotation(doc, due_date):
     taxes = []
     for row in doc.items:
         item_List.append({
-                "name": row.item_code,
-                "description": row.item_code,
-                "quantity": row.qty,
-                "unit_cost": row.rate,
+                "name": str(row.item_code),
+                "description": str(row.item_code),
+                "quantity": str(row.qty),
+                "unit_cost": str(row.rate),
                 "tax_List": [
                     {
                     "name": "CGST",
