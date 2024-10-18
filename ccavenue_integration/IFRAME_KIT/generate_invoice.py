@@ -53,8 +53,11 @@ def get_quotation(doc, due_date):
                                 "description": "ONDC Onboarding",
                                 "quantity": 1.0,
                                 "unit_cost": 1180.0,
-                                "tax_List": [{"name": "CGST", "amount": 9.0},
-                                    {"name": "SGST", "amount": 9.0}]}],
+                                "tax_List": [
+                                    {"name": "CGST", "amount": 9.0},
+                                    {"name": "SGST", "amount": 9.0}
+                            ]
+                            }],
                 "merchant_reference": "SAL-QTN-2024-00800",
                 "merchant_reference_no1": "SAL-QTN-2024-00800",
                 "merchant_reference_no2": "SAL-QTN-2024-00800",
@@ -63,6 +66,7 @@ def get_quotation(doc, due_date):
                 "sub_acc_id": "sub1",
                 "terms_and_conditions": "terms and condition",
                 "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."}
+    
     response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
