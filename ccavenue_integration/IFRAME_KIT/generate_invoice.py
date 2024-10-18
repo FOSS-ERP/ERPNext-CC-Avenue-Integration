@@ -28,16 +28,16 @@ def get_quotation(doc, due_date):
         item_List.append({
                 "name": str(row.item_code),
                 "description": str(row.item_code),
-                "quantity": str(row.qty),
-                "unit_cost": str(row.rate),
+                "quantity": row.qty,
+                "unit_cost": row.rate,
                 "tax_List": [
                     {
                     "name": "CGST",
-                    "amount": "{0}".format(9.0)
+                    "amount": 9.0
                     },
                     {
                     "name": "SGST",
-                    "amount": "{0}".format(9.0)
+                    "amount": 9.0
                     }
                 ]
             })
