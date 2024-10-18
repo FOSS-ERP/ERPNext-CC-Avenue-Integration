@@ -41,7 +41,7 @@ def get_quotation(doc, due_date):
                     }
                 ]
             })
-    form_data.update({'item_List' : item_List})
+    form_data.update({"item_List" : item_List})
 
     print(form_data)
 
