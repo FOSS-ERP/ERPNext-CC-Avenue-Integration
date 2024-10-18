@@ -12,11 +12,11 @@ def get_quotation(doc, due_date):
             "valid_for": "2",
             "valid_type": "days",
             "item_List": [],
-            "merchant_reference": "{0}122".format(doc.name),
-            "merchant_reference_no1": "{0}122".format(doc.name),
-            "merchant_reference_no2": "{0}122".format(doc.name),
-            "merchant_reference_no3": "{0}122".format(doc.name),
-            "merchant_reference_no4": "{0}122".format(doc.name),
+            "merchant_reference": "{0}".format(doc.name),
+            "merchant_reference_no1": "{0}".format(doc.name),
+            "merchant_reference_no2": "{0}".format(doc.name),
+            "merchant_reference_no3": "{0}".format(doc.name),
+            "merchant_reference_no4": "{0}".format(doc.name),
             "sub_acc_id": "sub1",
             "terms_and_conditions": "terms and condition",
             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
@@ -26,18 +26,18 @@ def get_quotation(doc, due_date):
     taxes = []
     for row in doc.items:
         item_List.append({
-                "name": row.item_code,
+                "name": "{0}".format(row.item_code),
                 "description": row.item_code,
-                "quantity": row.qty,
-                "unit_cost": row.rate,
+                "quantity": "{0}".format(row.qty),
+                "unit_cost": "{0}".format(row.rate),
                 "tax_List": [
                     {
                     "name": "CGST",
-                    "amount": 9
+                    "amount": "9.0"
                     },
                     {
                     "name": "SGST",
-                    "amount": 9
+                    "amount": "9.0"
                     }
                 ]
             })
