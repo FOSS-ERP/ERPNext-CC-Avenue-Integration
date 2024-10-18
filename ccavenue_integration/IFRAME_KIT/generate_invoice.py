@@ -12,11 +12,11 @@ def get_quotation(doc, due_date):
             "valid_for": "2",
             "valid_type": "days",
             "item_List": [],
-            "merchant_reference": "123456987-SN01",
-            "merchant_reference_no1": "123456987-SN01",
-            "merchant_reference_no2": "123456987-SN01",
-            "merchant_reference_no3": "123456987-SN01",
-            "merchant_reference_no4": "123456987-SN01",
+            "merchant_reference": "{0}".format(doc.name),
+            "merchant_reference_no1": "{0}".format(doc.name),
+            "merchant_reference_no2": "{0}".format(doc.name),
+            "merchant_reference_no3": "{0}".format(doc.name),
+            "merchant_reference_no4": "{0}".format(doc.name),
             "sub_acc_id": "sub1",
             "terms_and_conditions": "terms and condition",
             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
@@ -45,41 +45,6 @@ def get_quotation(doc, due_date):
 
     print(form_data)
 
-    # form_data = {
-    #             "customer_name": "abc",
-    #             "customer_email_id": "viral@fosserp.com",
-    #             "customer_email_subject": "Test",
-    #             "customer_mobile_no": "9874561236",
-    #             "currency": "INR",
-    #             "valid_for": "2",
-    #             "valid_type": "days",
-    #             "item_List": [
-    #                 {
-    #                 "name": "ONDC Onboarding",
-    #                 "description": "ONDC Onboarding",
-    #                 "quantity": "1",
-    #                 "unit_cost": 1000.00,
-    #                 "tax_List": [
-    #                     {
-    #                     "name": "CGST",
-    #                     "amount": 9.0
-    #                     },
-    #                     {
-    #                     "name": "SGST",
-    #                     "amount": 9.0
-    #                     }
-    #                 ]
-    #                 }
-    #             ],
-    #             "merchant_reference": "123456987-SN01",
-    #             "merchant_reference_no1": "123456987-SN01",
-    #             "merchant_reference_no2": "123456987-SN01",
-    #             "merchant_reference_no3": "123456987-SN01",
-    #             "merchant_reference_no4": "123456987-SN01",
-    #             "sub_acc_id": "sub1",
-    #             "terms_and_conditions": "terms and condition",
-    #             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-    #             }
     form_data = json.dumps(form_data)
     response = ccav_request_handler(form_data, "generateInvoice")
 
