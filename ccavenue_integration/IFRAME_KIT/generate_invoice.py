@@ -12,11 +12,11 @@ def get_quotation(doc, due_date):
             "valid_for": "2",
             "valid_type": "days",
             "item_List": [],
-            "merchant_reference": "{0}-1".format(doc.name),
-            "merchant_reference_no1": "{0}-1".format(doc.name),
-            "merchant_reference_no2": "{0}-1".format(doc.name),
-            "merchant_reference_no3": "{0}-1".format(doc.name),
-            "merchant_reference_no4": "{0}-1".format(doc.name),
+            "merchant_reference": "{0}".format(doc.name),
+            "merchant_reference_no1": "{0}".format(doc.name),
+            "merchant_reference_no2": "{0}".format(doc.name),
+            "merchant_reference_no3": "{0}".format(doc.name),
+            "merchant_reference_no4": "{0}".format(doc.name),
             "sub_acc_id": "sub1",
             "terms_and_conditions": "terms and condition",
             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
@@ -41,13 +41,14 @@ def get_quotation(doc, due_date):
                     }
                 ]
             })
-    form_data.update({"item_List" : item_List})
-
     print(form_data)
+    # form_data.update({"item_List" : item_List})
 
-    response = ccav_request_handler(form_data, "generateInvoice")
+    # print(form_data)
 
-    print(response)
+    # response = ccav_request_handler(form_data, "generateInvoice")
+
+    # print(response)
 
 
 
