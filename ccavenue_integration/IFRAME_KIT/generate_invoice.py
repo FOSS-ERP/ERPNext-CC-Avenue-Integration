@@ -45,9 +45,9 @@ def get_quotation(doc, due_date):
    
     print(form_data)
 
-    response = ccav_request_handler(form_data, "generateInvoice")
+    # response = ccav_request_handler(form_data, "generateInvoice")
 
-    print(response)
+    # print(response)
 
 
 
