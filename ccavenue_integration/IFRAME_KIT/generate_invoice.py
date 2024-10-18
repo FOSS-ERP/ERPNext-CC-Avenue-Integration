@@ -45,7 +45,7 @@ def get_quotation(doc, due_date):
 
     form_data = {
                 "customer_name": "abc",
-                "customer_email_id": "abc@sify.com",
+                "customer_email_id": "viral@fosserp.com",
                 "customer_email_subject": "Test",
                 "customer_mobile_no": "9874561236",
                 "currency": "INR",
