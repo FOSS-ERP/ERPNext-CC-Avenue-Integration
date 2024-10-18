@@ -42,30 +42,30 @@ def get_quotation(doc, due_date):
                 ]
             })
     form_data.update({"item_List" : item_List})
-    form_data = {"customer_name": "FOSS ERP",
-                "customer_email_id": "viral@fosserp.com",
-                "customer_email_subject": "Invoice",
-                "customer_mobile_no": "9988776655",
-                "currency": "INR",
-                "valid_for": "2",
-                "valid_type": "days",
-                "item_List": [{"name": "ONDC Onboarding",
-                                "description": "ONDC Onboarding",
-                                "quantity": 1.0,
-                                "unit_cost": 1180.0,
-                                "tax_List": [
-                                    {"name": "CGST", "amount": 9.0},
-                                    {"name": "SGST", "amount": 9.0}
-                            ]
-                            }],
-                "merchant_reference": "SAL-QTN-2024-00800",
-                "merchant_reference_no1": "SAL-QTN-2024-00800",
-                "merchant_reference_no2": "SAL-QTN-2024-00800",
-                "merchant_reference_no3": "SAL-QTN-2024-00800",
-                "merchant_reference_no4": "SAL-QTN-2024-00800",
-                "sub_acc_id": "sub1",
-                "terms_and_conditions": "terms and condition",
-                "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."}
+    # form_data = {"customer_name": "FOSS ERP",
+    #             "customer_email_id": "viral@fosserp.com",
+    #             "customer_email_subject": "Invoice",
+    #             "customer_mobile_no": "9988776655",
+    #             "currency": "INR",
+    #             "valid_for": "2",
+    #             "valid_type": "days",
+    #             "item_List": [{"name": "ONDC Onboarding",
+    #                             "description": "ONDC Onboarding",
+    #                             "quantity": 1.0,
+    #                             "unit_cost": 1180.0,
+    #                             "tax_List": [
+    #                                 {"name": "CGST", "amount": 9.0},
+    #                                 {"name": "SGST", "amount": 9.0}
+    #                         ]
+    #                         }],
+    #             "merchant_reference": "SAL-QTN-2024-00800",
+    #             "merchant_reference_no1": "SAL-QTN-2024-00800",
+    #             "merchant_reference_no2": "SAL-QTN-2024-00800",
+    #             "merchant_reference_no3": "SAL-QTN-2024-00800",
+    #             "merchant_reference_no4": "SAL-QTN-2024-00800",
+    #             "sub_acc_id": "sub1",
+    #             "terms_and_conditions": "terms and condition",
+    #             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."}
     
     response = ccav_request_handler(form_data, "generateInvoice")
 
