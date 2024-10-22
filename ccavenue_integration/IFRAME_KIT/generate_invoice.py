@@ -42,7 +42,41 @@ def get_quotation(doc, due_date):
                 ]
             })
     form_data.update({"item_List" : item_List})
-
+    form_data = {
+    "customer_name": "Sagar Chinda",
+    "customer_email_id": "admin@gmail.com",
+    "customer_email_subject": "Invoice",
+    "customer_mobile_no": "9458086626",
+    "currency": "INR",
+    "valid_for": "2",
+    "valid_type": "days",
+    "item_List": [
+        {
+            "name": "Udyam Registrations",
+            "description": "Udyam Registrations",
+            "quantity": "1.0",
+            "unit_cost": "1062.0",
+            "tax_List": [
+                {
+                    "name": "CGST",
+                    "amount": "9.0"
+                },
+                {
+                    "name": "SGST",
+                    "amount": "9.0"
+                }
+            ]
+        }
+    ],
+    "merchant_reference": "SAL-QTN-2024-0082412",
+    "merchant_reference_no1": "SAL-QTN-2024-0082412",
+    "merchant_reference_no2": "SAL-QTN-2024-0082412",
+    "merchant_reference_no3": "SAL-QTN-2024-0082412",
+    "merchant_reference_no4": "SAL-QTN-2024-0082412",
+    "sub_acc_id": "sub1",
+    "terms_and_conditions": "terms and condition",
+    "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
+}
     json_string = json.dumps(form_data, indent=4)
     
     print(json_string)
