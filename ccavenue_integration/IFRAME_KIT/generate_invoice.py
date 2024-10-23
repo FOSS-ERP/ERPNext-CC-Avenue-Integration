@@ -12,6 +12,7 @@ def get_quotation(doc, due_date):
             "valid_for": "2",
             "valid_type": "days",
             "item_List": [],
+            "Amount" : "{0}".format(doc.grand_total),
             "merchant_reference": "{0}".format(doc.name),
             "merchant_reference_no1": "{0}".format(doc.name),
             "merchant_reference_no2": "{0}".format(doc.name),
