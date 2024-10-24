@@ -2,7 +2,7 @@ import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
 
-def get_quotation(doc, due_date):
+def get_quotation(doc):
     form_data = {
             "customer_name": "{0}".format(doc.customer_name),
             "customer_email_id": "{0}".format(doc.contact_email),
