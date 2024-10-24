@@ -32,8 +32,8 @@ def get_quotation(doc):
         item_List.append({
                 "name": "{0}".format(row.item_code),
                 "description": "{0}".format(row.item_code),
-                "quantity": row.qty-200,
-                "unit_cost": row.rate,
+                "quantity": row.qty,
+                "unit_cost": row.rate-200,
                 "tax_List": [
                     {
                     "name": "CGST",
