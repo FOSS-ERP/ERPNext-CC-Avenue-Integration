@@ -17,7 +17,7 @@ def get_quotation(doc):
             "merchant_reference_no3": "{0}".format(doc.name),
             "merchant_reference_no4": "{0}".format(doc.name),
             "sub_acc_id": "sub1",
-            # "amount" : "{0}".format(doc.grand_total),
+            "amount" : "{0}".format(doc.grand_total),
             "due_date" : 1,
             "late_payment_fees" : 1,
             "late_payment_fees_type" : "Flat",
@@ -32,7 +32,7 @@ def get_quotation(doc):
         item_List.append({
                 "name": "{0}".format(row.item_code),
                 "description": "{0}".format(row.item_code),
-                "quantity": row.qty,
+                "quantity": row.qty-200,
                 "unit_cost": row.rate,
                 "tax_List": [
                     {
