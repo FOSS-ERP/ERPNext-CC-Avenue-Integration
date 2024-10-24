@@ -19,8 +19,8 @@ def get_quotation(doc):
             "sub_acc_id": "sub1",
             "amount" : "{0}".format(doc.grand_total),
             "due_date" : 1,
-            "late_payment_fees" : 1,
-            "late_payment_fees_type" : "Flat",
+            "Late_payment_fees" : 1,
+            "Late_payment_fees_type" : "Flat",
             "item_List": [],
             "terms_and_conditions": "terms and condition",
             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
