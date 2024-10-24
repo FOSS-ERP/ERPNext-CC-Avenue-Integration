@@ -21,7 +21,7 @@ def get_quotation(doc):
             "due_date" : 1,
             # "late_payment_fees" : 1,
             # "late_payment_fees_type" : "Flat",
-            "Item_List": [],
+            "item_List": [],
             "terms_and_conditions": "terms and condition",
             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
         }
@@ -34,7 +34,7 @@ def get_quotation(doc):
                 "description": "{0}".format(row.item_code),
                 "quantity": row.qty,
                 "unit_cost": row.rate,
-                "Tax_List": [
+                "tax_List": [
                     {
                     "name": "CGST",
                     "amount": 9.0
@@ -45,7 +45,7 @@ def get_quotation(doc):
                     }
                 ]
             })
-    form_data.update({"Item_List" : item_List})
+    form_data.update({"item_List" : item_List})
    
     json_string = json.dumps(form_data, indent=4)
     
