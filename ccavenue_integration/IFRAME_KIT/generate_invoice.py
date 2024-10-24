@@ -5,7 +5,7 @@ import json
 def get_quotation(doc):
     form_data = {
             "customer_name": "{0}".format(doc.customer_name),
-            "customer_email_id": "{0}".format(doc.contact_email),
+            "customer_email_id": "{0}".format("viral.kansodiya77@gmail.com"),
             "customer_email_subject": "Invoice",
             "customer_mobile_no": "{0}".format(doc.contact_mobile),
             "valid_for": "2",
