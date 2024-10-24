@@ -18,7 +18,7 @@ def get_quotation(doc):
             "merchant_reference_no4": "{0}-5".format(doc.name),
             "sub_acc_id": "sub1",
             "amount" : "{0}".format(doc.grand_total),
-            "due_date" : 1,
+            # "due_date" : 1,
             # "late_payment_fees" : 1,
             # "late_payment_fees_type" : "Flat",
             "item_List": [],
