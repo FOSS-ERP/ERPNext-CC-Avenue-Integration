@@ -45,7 +45,7 @@ def get_quotation(doc):
                     }
                 ]
             })
-    form_data.update({"item_List" : item_List})
+    form_data.update({"Item_List" : item_List})
    
     json_string = json.dumps(form_data, indent=4)
     
