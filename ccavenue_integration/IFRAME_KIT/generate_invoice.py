@@ -26,16 +26,16 @@ def get_quotation(doc):
         item_List.append({
                 "name": "{0}".format(row.item_code),
                 "description": "{0}".format(row.item_code),
-                "quantity": row.qty,
-                "unit_cost": row.rate-200,
+                "quantity": str(row.qty),
+                "unit_cost": row.rate,
                 "tax_List": [
                     {
                     "name": "CGST",
-                    "amount": 9.0
+                    "amount": "9.0"
                     },
                     {
                     "name": "SGST",
-                    "amount": 9.0
+                    "amount": "9.0"
                     }
                 ]
             })
