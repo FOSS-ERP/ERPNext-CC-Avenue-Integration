@@ -27,7 +27,7 @@ def get_quotation(doc):
                 "name": "{0}".format(row.item_code),
                 "description": "{0}".format(row.item_code),
                 "quantity": str(row.qty),
-                "unit_cost": row.rate,
+                "unit_cost": str(row.rate),
                 "tax_List": [
                     {
                     "name": "CGST",
