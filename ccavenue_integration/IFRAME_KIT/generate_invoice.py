@@ -14,7 +14,7 @@ def get_quotation(doc):
         {"name": "SGST","amount": "9.0"}
         ]
         }],
-        "merchant_reference": "{0}".format(doc.name), "merchant_reference_no1":"{0}".format(doc.name) "merchant_reference_no2":"{0}".format(doc.name) "merchant_reference_no3": "{0}".format(doc.name),
+        "merchant_reference": "{0}".format(doc.name), "merchant_reference_no1":"{0}".format(doc.name), "merchant_reference_no2":"{0}".format(doc.name) "merchant_reference_no3": "{0}".format(doc.name),
         "merchant_reference_no4": "{0}".format(doc.name),
         "terms_and_conditions": "terms and condition",
         "sms_content":"Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
