@@ -6,14 +6,7 @@ def get_quotation(doc):
     form_data = {
         "customer_name": "{0}".format(doc.party_name), "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Invoice - {0}".format(doc.name), "customer_mobile_no": "{0}".format(doc.contact_mobile), "currency": "INR",
         "valid_for": "2", "valid_type": "days", 
-        "item_List": [{
-        "name": "ONDC Onboarding",
-        "description": "ONDC Onboarding", "quantity": "1",
-        "unit_cost": "100.00", "tax_List": [
-        {"name": "CGST","amount": "9.0"},
-        {"name": "SGST","amount": "9.0"}
-        ]
-        }],
+        "item_List": [],
         "merchant_reference": "{0}".format(doc.name), "merchant_reference_no1":"{0}".format(doc.name), "merchant_reference_no2":"{0}".format(doc.name), "merchant_reference_no3": "{0}".format(doc.name),
         "merchant_reference_no4": "{0}".format(doc.name),
         "terms_and_conditions": "terms and condition",
@@ -39,13 +32,11 @@ def get_quotation(doc):
                     }
                 ]
             })
-    form_data.update({"item_List" : item_List})
-    json_string = json.dumps(form_data)
-    
-    
-    print(json_string)
+    form_data["item_List"] = item_List
+        
+    print(form_data)
 
-    response = ccav_request_handler(json_string, "generateInvoice")
+    response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
 
