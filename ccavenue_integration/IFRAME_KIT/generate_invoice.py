@@ -38,7 +38,7 @@ def get_quotation(doc):
                 ]
             })
     form_data["item_List"] = item_List
-    print(type(json_data))
+    print(type(form_data))
     data =  json.dumps(json_data)
     response = ccav_request_handler(data, "generateInvoice")
 
