@@ -57,8 +57,8 @@ def get_quotation(doc):
     #     "sms_content":"Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
     #     }
     str_data = str(form_data).replace("'", '"')
-    print(form_data)
-    response = ccav_request_handler(form_data, "generateInvoice")
+    print(str_data)
+    response = ccav_request_handler(str_data, "generateInvoice")
 
     print(response)
 
