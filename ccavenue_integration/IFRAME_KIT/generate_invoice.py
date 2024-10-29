@@ -36,7 +36,8 @@ def get_quotation(doc):
 
     form_data = json.dumps(form_data)
 
-    form_data = {"customer_name": "FOSSERP",
+    form_data = {
+                "customer_name": "FOSSERPOPO",
                 "customer_email_id": "viral@fosserp.com",
                 "customer_email_subject": "Invoice - SAL-QTN-2024-00799",
                 "customer_mobile_no": "9988776655",
