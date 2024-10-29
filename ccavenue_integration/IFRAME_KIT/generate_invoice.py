@@ -4,7 +4,7 @@ import json
 
 def get_quotation(doc):
     form_data = {
-        "customer_name": doc.party_name, "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Invoice - {0}".format(doc.name), "customer_mobile_no": doc.contact_mobile), "currency": "INR",
+        "customer_name": doc.party_name, "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Invoice - {0}".format(doc.name), "customer_mobile_no": doc.contact_mobile, "currency": "INR",
         "valid_for": "2", "valid_type": "days", 
         "item_List": [],
         "merchant_reference": doc.name, "merchant_reference_no1":doc.name, "merchant_reference_no2":doc.name, "merchant_reference_no3": doc.name,
