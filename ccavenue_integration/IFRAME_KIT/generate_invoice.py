@@ -4,11 +4,11 @@ import json
 
 def get_quotation(doc):
     form_data = {
-        "customer_name": "{0}".format(doc.party_name), "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Invoice - {0}".format(doc.name), "customer_mobile_no": "{0}".format(doc.contact_mobile), "currency": "INR",
+        "customer_name": doc.party_name, "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Invoice - {0}".format(doc.name), "customer_mobile_no": doc.contact_mobile), "currency": "INR",
         "valid_for": "2", "valid_type": "days", 
         "item_List": [],
-        "merchant_reference": "{0}".format(doc.name), "merchant_reference_no1":"{0}".format(doc.name), "merchant_reference_no2":"{0}".format(doc.name), "merchant_reference_no3": "{0}".format(doc.name),
-        "merchant_reference_no4": "{0}".format(doc.name),
+        "merchant_reference": doc.name, "merchant_reference_no1":doc.name, "merchant_reference_no2":doc.name, "merchant_reference_no3": doc.name,
+        "merchant_reference_no4": doc.name,
         "terms_and_conditions": "terms and condition",
         "sms_content":"Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
         }
@@ -17,18 +17,18 @@ def get_quotation(doc):
     taxes = []
     for row in doc.items:
         item_List.append({
-                "name": "{0}".format(row.item_code),
-                "description": "{0}".format(row.item_code),
-                "quantity": str(row.qty),
-                "unit_cost": str(row.rate),
+                "name": row.item_code,
+                "description": row.item_code,
+                "quantity": row.qty,
+                "unit_cost": row.rate,
                 "tax_List": [
                     {
                     "name": "CGST",
-                    "amount": "9.0"
+                    "amount": 9.0
                     },
                     {
                     "name": "SGST",
-                    "amount": "9.0"
+                    "amount": 9.0
                     }
                 ]
             })
@@ -36,7 +36,6 @@ def get_quotation(doc):
 
     form_data = json.dumps(form_data)
 
-    # print(form_data)
     form_data = {"customer_name": "FOSSERP",
                 "customer_email_id": "viral@fosserp.com",
                 "customer_email_subject": "Invoice - SAL-QTN-2024-00799",
@@ -53,11 +52,11 @@ def get_quotation(doc):
                 {"name": "SGST","amount": "9.0"}
                 ]
                 }],
-                "merchant_reference": "SAL-QTN-2024-00799",
-                "merchant_reference_no1": 123456987,
-                "merchant_reference_no2": 123456987,
-                "merchant_reference_no3": "SAL-QTN-2024-00799",
-                "merchant_reference_no4": "SAL-QTN-2024-00799",
+                "merchant_reference": "123456987", 
+                "merchant_reference_no1": 123456987, 
+                "merchant_reference_no2": 123456987, 
+                "merchant_reference_no3": "123456987",
+                "merchant_reference_no4": "123456987",
                 "terms_and_conditions": "terms and condition",
                 "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
                 }
