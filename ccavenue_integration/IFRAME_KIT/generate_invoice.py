@@ -47,7 +47,7 @@ def get_quotation(doc):
                 "item_List": [{"name": "ONDC Onboarding",
                 "description": "ONDC Onboarding",
                 "quantity": "1.0",
-                "unit_cost": "1180.0",
+                "unit_cost": "1180.00",
                 "tax_List": [
                 {"name": "CGST", "amount": "9.0"},
                 {"name": "SGST","amount": "9.0"}
@@ -61,6 +61,7 @@ def get_quotation(doc):
                 "terms_and_conditions": "terms and condition",
                 "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
                 }
+    form_data = json.dumps(form_data)
     response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
