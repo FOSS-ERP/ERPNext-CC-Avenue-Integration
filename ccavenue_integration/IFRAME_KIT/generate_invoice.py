@@ -4,18 +4,18 @@ import json
 
 def get_quotation(doc):
     form_data = {
-                "customer_name": self.customer_name,
-                "customer_email_id": self.contact_email,
+                "customer_name": doc.customer_name,
+                "customer_email_id": doc.contact_email,
                 "customer_email_subject": "Quotation",
                 "valid_for": 2,
                 "valid_type": "days",
                 "bill_delivery_type":"EMAIL",
-                "currency": self.currency,
-                "merchant_reference_no": self.name,
-                "merchant_reference_no1": self.name,
-                "merchant_reference_no2": self.name,
-                "merchant_reference_no3": self.name,
-                "merchant_reference_no4": self.name,
+                "currency": doc.currency,
+                "merchant_reference_no": doc.name,
+                "merchant_reference_no1": doc.name,
+                "merchant_reference_no2": doc.name,
+                "merchant_reference_no3": doc.name,
+                "merchant_reference_no4": doc.name,
             }
 
     item_List = []
