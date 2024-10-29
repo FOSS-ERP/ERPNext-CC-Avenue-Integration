@@ -8,7 +8,7 @@ def get_quotation(doc):
         "valid_for": "2", "valid_type": "days", "item_List": [{
         "name": "ONDC Onboarding",
         "description": "ONDC Onboarding", "quantity": "1",
-        "unit_cost": "1180.00", "tax_List": [
+        "unit_cost": "100.00", "tax_List": [
         {"name": "CGST","amount": "9.0"},
         {"name": "SGST","amount": "9.0"}
         ]
@@ -40,7 +40,6 @@ def get_quotation(doc):
             })
     form_data["item_List"] = item_List
     json_data = json.dumps(form_data, indent=4)
-    json_data = json.loads(str(json_data))
 
     print(json_data)
     response = ccav_request_handler(json_data, "generateInvoice")
