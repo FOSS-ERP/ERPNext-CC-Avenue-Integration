@@ -36,8 +36,8 @@ def get_quotation(doc):
 
     form_data = json.dumps(form_data)
 
-    print(form_data)
-    form_data = {"customer_name": "FOSS ERP",
+    # print(form_data)
+    form_data = {"customer_name": "FOSSERP",
                 "customer_email_id": "viral@fosserp.com",
                 "customer_email_subject": "Invoice - SAL-QTN-2024-00799",
                 "customer_mobile_no": "9988776655",
@@ -62,6 +62,7 @@ def get_quotation(doc):
                 "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
                 }
     form_data = json.dumps(form_data)
+    print(form_data)
     response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
