@@ -40,7 +40,6 @@ def get_quotation(doc):
             })
     form_data["item_List"] = item_List
 
-    form_data = json.dumps(form_data)
 
     # form_data = {
     #     "customer_name": "FOSS ERP", "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Test", "customer_mobile_no": "9874561236", "currency": "INR",
