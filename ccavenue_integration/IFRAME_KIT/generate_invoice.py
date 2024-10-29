@@ -4,7 +4,7 @@ import json
 
 def get_quotation(doc):
     form_data = {
-        "customer_name": "", "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Test", "customer_mobile_no": "9874561236", "currency": "INR",
+        "customer_name": "{0}".format(doc.customer), "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Test", "customer_mobile_no": "9874561236", "currency": "INR",
         "valid_for": "2", "valid_type": "days", "item_List": [{
         "name": "ONDC Onboarding",
         "description": "ONDC Onboarding", "quantity": "1",
