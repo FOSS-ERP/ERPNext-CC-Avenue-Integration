@@ -60,7 +60,6 @@ def get_quotation(doc):
                 "terms_and_conditions": "terms and condition",
                 "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
                 }
-    form_data = json.dumps(form_data)
     print(form_data)
     response = ccav_request_handler(form_data, "generateInvoice")
 
