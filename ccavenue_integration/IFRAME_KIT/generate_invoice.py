@@ -54,8 +54,8 @@ def get_quotation(doc):
                 ]
                 }],
                 "merchant_reference": "SAL-QTN-2024-00799",
-                "merchant_reference_no1": 799,
-                "merchant_reference_no2": 799,
+                "merchant_reference_no1": 123456987,
+                "merchant_reference_no2": 123456987,
                 "merchant_reference_no3": "SAL-QTN-2024-00799",
                 "merchant_reference_no4": "SAL-QTN-2024-00799",
                 "terms_and_conditions": "terms and condition",
