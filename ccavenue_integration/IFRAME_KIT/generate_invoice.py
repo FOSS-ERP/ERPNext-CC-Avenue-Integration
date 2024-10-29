@@ -74,7 +74,7 @@ def get_quotation(doc):
         "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
     }
     print(type(json_data))
-    data =  json.dumps(json_data, indent=4)
+    data =  json.dumps(json_data)
     response = ccav_request_handler(data, "generateInvoice")
 
     print(response)
