@@ -7,6 +7,7 @@ def get_quotation(doc):
                 "customer_name": doc.customer_name,
                 "customer_email_id": doc.contact_email,
                 "customer_email_subject": "Quotation",
+                "customer_mobile_no":"7990225354"
                 "valid_for": 2,
                 "valid_type": "days",
                 "bill_delivery_type":"EMAIL",
