@@ -39,7 +39,7 @@ def get_quotation(doc):
     form_data = {
                 "customer_name": "FOSSERPOPO",
                 "customer_email_id": "viral@fosserp.com",
-                "customer_email_subject": "Invoice - SAL-QTN-2024-00799",
+                "customer_email_subject": "Test",
                 "customer_mobile_no": "9988776655",
                 "currency": "INR",
                 "valid_for": "2",
