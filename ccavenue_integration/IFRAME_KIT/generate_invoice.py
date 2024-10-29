@@ -52,16 +52,16 @@ def get_quotation(doc):
             {
                 "name": "ONDC Onboarding",
                 "description": "ONDC Onboarding",
-                "quantity": 1.0,
-                "unit_cost": 1180.0,
+                "quantity": "1.0",
+                "unit_cost": "1180.0",
                 "tax_List": [
                     {
                         "name": "CGST",
-                        "amount": 9.0
+                        "amount": "9.0"
                     },
                     {
                         "name": "SGST",
-                        "amount": 9.0
+                        "amount": "9.0"
                     }
                 ]
             }
