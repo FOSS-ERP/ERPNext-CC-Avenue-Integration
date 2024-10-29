@@ -39,7 +39,6 @@ def get_quotation(doc):
                 ]
             })
     form_data["item_List"] = item_List
-    json_data = json.dumps(form_data, indent=4)
     json_data = {
         "customer_name": "FOSS ERP",
         "customer_email_id": "viral@fosserp.com",
@@ -53,7 +52,7 @@ def get_quotation(doc):
                 "name": "ONDC Onboarding",
                 "description": "ONDC Onboarding",
                 "quantity": "1.0",
-                "unit_cost": "1180.0",
+                "unit_cost": "1180.00",
                 "tax_List": [
                     {
                         "name": "CGST",
