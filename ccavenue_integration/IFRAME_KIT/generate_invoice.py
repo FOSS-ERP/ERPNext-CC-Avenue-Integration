@@ -41,7 +41,7 @@ def get_quotation(doc):
     "valid_for": "2", "valid_type": "days", "item_List": [{
     "name": "ONDC Onboarding",
     "description": "ONDC Onboarding", "quantity": "1",
-    "unit_cost": "1180.00", "tax_List": [
+    "unit_cost": "100.00", "tax_List": [
     {"name": "CGST","amount": "9.0"},
     {"name": "SGST","amount": "9.0"}
     ]
