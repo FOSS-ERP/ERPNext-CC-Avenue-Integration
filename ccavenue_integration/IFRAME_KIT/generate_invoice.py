@@ -4,20 +4,19 @@ import json
 
 def get_quotation(doc):
     form_data = {
-        "customer_name": "{0}".format(doc.party_name), "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Test", "customer_mobile_no": "9874561236", "currency": "INR",
-        "valid_for": "2", "valid_type": "days", "item_List": [{
-        "name": "ONDC Onboarding",
-        "description": "ONDC Onboarding", "quantity": "1",
-        "unit_cost": "100.00", "tax_List": [
-        {"name": "CGST","amount": "9.0"},
-        {"name": "SGST","amount": "9.0"}
-        ]
-        }],
-        "merchant_reference": "{0}".format(doc.name), "merchant_reference_no1":123456987, "merchant_reference_no2":123456987, "merchant_reference_no3": "123456987",
-        "merchant_reference_no4": "123456987",
-        "terms_and_conditions": "terms and condition",
-        "sms_content":"Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-        }
+                "customer_name": self.customer_name,
+                "customer_email_id": self.contact_email,
+                "customer_email_subject": "Quotation",
+                "valid_for": 2,
+                "valid_type": "days",
+                "bill_delivery_type":"EMAIL",
+                "currency": self.currency,
+                "merchant_reference_no": self.name,
+                "merchant_reference_no1": self.name,
+                "merchant_reference_no2": self.name,
+                "merchant_reference_no3": self.name,
+                "merchant_reference_no4": self.name,
+            }
 
     item_List = []
     taxes = []
@@ -39,40 +38,6 @@ def get_quotation(doc):
                 ]
             })
     form_data["item_List"] = item_List
-    json_data = {
-        "customer_name": "FOSS ERP",
-        "customer_email_id": "viral@fosserp.com",
-        "customer_email_subject": "Test",
-        "customer_mobile_no": "9874561236",
-        "currency": "INR",
-        "valid_for": "2",
-        "valid_type": "days",
-        "item_List": [
-            {
-                "name": "ONDC Onboarding",
-                "description": "ONDC Onboarding",
-                "quantity": "1.0",
-                "unit_cost": "1180.00",
-                "tax_List": [
-                    {
-                        "name": "CGST",
-                        "amount": "9.0"
-                    },
-                    {
-                        "name": "SGST",
-                        "amount": "9.0"
-                    }
-                ]
-            }
-        ],
-        "merchant_reference": "SAL-QTN-2024-00799",
-        "merchant_reference_no1": 123456987,
-        "merchant_reference_no2": 123456987,
-        "merchant_reference_no3": "123456987",
-        "merchant_reference_no4": "123456987",
-        "terms_and_conditions": "terms and condition",
-        "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-    }
     print(type(json_data))
     data =  json.dumps(json_data)
     response = ccav_request_handler(data, "generateInvoice")
