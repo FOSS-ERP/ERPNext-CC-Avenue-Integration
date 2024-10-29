@@ -37,7 +37,30 @@ def get_quotation(doc):
     form_data = json.dumps(form_data)
 
     print(form_data)
-
+    form_data = {"customer_name": "FOSS ERP",
+                "customer_email_id": "viral@fosserp.com",
+                "customer_email_subject": "Invoice - SAL-QTN-2024-00799",
+                "customer_mobile_no": "9988776655",
+                "currency": "INR",
+                "valid_for": "2",
+                "valid_type": "days",
+                "item_List": [{"name": "ONDC Onboarding",
+                "description": "ONDC Onboarding",
+                "quantity": "1.0",
+                "unit_cost": "1180.0",
+                "tax_List": [
+                {"name": "CGST", "amount": "9.0"},
+                {"name": "SGST","amount": "9.0"}
+                ]
+                }],
+                "merchant_reference": "SAL-QTN-2024-00799",
+                "merchant_reference_no1": "00799",
+                "merchant_reference_no2": "00799",
+                "merchant_reference_no3": "SAL-QTN-2024-00799",
+                "merchant_reference_no4": "SAL-QTN-2024-00799",
+                "terms_and_conditions": "terms and condition",
+                "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
+                }
     response = ccav_request_handler(form_data, "generateInvoice")
 
     print(response)
