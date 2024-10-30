@@ -38,10 +38,7 @@ def get_quotation(doc):
         "terms_and_conditions": "terms and condition",
         "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
     }
-    print("First dynamic")
-    print(type(form_data))
-    form_data = json.dumps(form_data)
-    print(form_data)
+    
     # form_data = {
     #             "customer_name": doc.customer_name,
     #             "customer_email_id": doc.contact_email,
@@ -79,6 +76,11 @@ def get_quotation(doc):
             })
     form_data.update({ "item_List" : item_List })
 
+    print("First dynamic")
+    print(type(form_data))
+    form_data = json.dumps(form_data)
+    print(form_data)
+    
     form_data =  {
         "customer_name": "FOSS ERP",
         "customer_email_id": "viral@fosserp.com",
