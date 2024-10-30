@@ -40,7 +40,21 @@ def get_quotation(doc):
             })
     form_data["item_List"] = item_List
 
-    data =  {"customer_name": "FOSS ERP", "customer_email_id": "viral@fosserp.com", "customer_email_subject": "Quotation", "customer_mobile_no": "7990225354", "valid_for": 2, "valid_type": "days", "bill_delivery_type": "EMAIL", "currency": "INR", "merchant_reference_no": "SAL-QTN-2024-00799", "merchant_reference_no1": "SAL-QTN-2024-00799", "merchant_reference_no2": "SAL-QTN-2024-00799", "merchant_reference_no3": "SAL-QTN-2024-00799", "merchant_reference_no4": "SAL-QTN-2024-00799", "item_List": [{"name": "ONDC Onboarding", "description": "ONDC Onboarding", "quantity": "1.0", "unit_cost": "1180.0", "tax_List": [{"name": "CGST", "amount": "9.0"}, {"name": "SGST", "amount": "9.0"}]}]}
+    data =  {
+        "customer_name": "FOSS ERP", 
+        "customer_email_id": "viral@fosserp.com", 
+        "customer_email_subject": "Quotation", 
+        "customer_mobile_no": "7990225354", 
+        "valid_for": 2, 
+        "valid_type": "days", 
+        "bill_delivery_type": 
+        "EMAIL", "currency": "INR", 
+        "merchant_reference_no": "SAL-QTN-2024-00799", 
+        "merchant_reference_no1": "SAL-QTN-2024-00799", 
+        "merchant_reference_no2": "SAL-QTN-2024-00799", 
+        "merchant_reference_no3": "SAL-QTN-2024-00799", 
+        "merchant_reference_no4": "SAL-QTN-2024-00799", 
+        "item_List": [{"name": "ONDC Onboarding", "description": "ONDC Onboarding", "quantity": "1.0", "unit_cost": "1180.0", "tax_List": [{"name": "CGST", "amount": "9.0"}, {"name": "SGST", "amount": "9.0"}]}]}
 
     print(type(data))
     print(data)
