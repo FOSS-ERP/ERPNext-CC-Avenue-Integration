@@ -40,7 +40,7 @@ def get_quotation(self):
 
     item_List = []
     taxes = []
-    for row in doc.items:
+    for row in self.items:
         item_List.append({
                 "name": row.item_code,
                 "description": row.item_code,
