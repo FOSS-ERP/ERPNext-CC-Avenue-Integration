@@ -5,30 +5,13 @@ import json
 def get_quotation(doc):
     form_data =  {
         "customer_name": doc.customer_name,
-        "customer_email_id": "viral@fosserp.com",
+        "customer_email_id": doc.contact_email,
         "customer_email_subject": "Invoice",
-        "customer_mobile_no": "9999999999",
+        "customer_mobile_no": doc.contact_mobile,
         "currency": "INR",
         "valid_for": "2",
         "valid_type": "days",
-        "item_List": [
-            {
-                "name": "ONDC Onboarding",
-                "description": "ONDC Onboarding",
-                "quantity": "1",
-                "unit_cost": "1180.0",
-                "tax_List": [
-                    {
-                        "name": "CGST",
-                        "amount": "9.0"
-                    },
-                    {
-                        "name": "SGST",
-                        "amount": "9.0"
-                    }
-                ]
-            }
-        ],
+        "item_List": [],
         "merchant_reference": doc.name,
         "merchant_reference_no1": doc.name,
         "merchant_reference_no2": doc.name,
