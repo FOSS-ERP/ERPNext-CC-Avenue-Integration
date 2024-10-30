@@ -42,7 +42,7 @@ def get_quotation(doc):
 
     data =  {
         "customer_name": "FOSS ERP",
-        "customer_email_id": "test@fosserp.com",
+        "customer_email_id": "viral@fosserp.com",
         "customer_email_subject": "Invoice",
         "customer_mobile_no": "9999999999",
         "currency": "INR",
