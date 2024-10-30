@@ -73,7 +73,7 @@ def get_quotation(doc):
                     }
                 ]
             })
-    form_data["item_List"] = item_List
+    form_data.update({ "item_List" : item_List })
 
     
     print(type(data))
