@@ -77,7 +77,7 @@ def get_quotation(doc):
 
     
     print(type(data))
-    print(data)
+    data = json.dumps(data)
 
     response = ccav_request_handler(data, "generateInvoice")
 
