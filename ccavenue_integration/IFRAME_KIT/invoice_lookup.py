@@ -12,8 +12,8 @@ from erpnext.selling.doctype.quotation.quotation import make_sales_order
 
 
 def get_parameters():
-    get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Pending", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
-
+    # get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Pending", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
+    get_quotation_list = ["SAL-QTN-2024-00903", 'SAL-QTN-2024-00902']
     for row in get_quotation_list:
         doc = frappe.get_doc("Quotation", row)
         if not doc.custom_ccavenue_invoice_id:
