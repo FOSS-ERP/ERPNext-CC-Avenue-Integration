@@ -66,9 +66,7 @@ def get_parameters():
                 
                 json_data = json.loads(data)
 
-                print(json_data.get('invoice_List')[0].get("invoice_status"))
-                print(row)
-                print(json_data.get('invoice_List')[0].get("order_Gross_Amt"))
+                print(json_data)
 
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
