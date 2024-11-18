@@ -42,7 +42,7 @@ def get_quotation(self):
     taxes = []
     for row in self.items:
         for d in self.taxes:
-            if "CGST" in str(d.description) or "SGST" in str(d.description):
+            if "CGST" in d.description or "SGST" in d.description:
                 item_List.append({
                         "name": row.item_code,
                         "description": row.item_code,
