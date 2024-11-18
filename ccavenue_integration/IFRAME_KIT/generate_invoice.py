@@ -51,11 +51,11 @@ def get_quotation(self):
                         "tax_List": [
                             {
                             "name": "CGST",
-                            "amount": d.rate
+                            "amount": str(9.0)
                             },
                             {
                             "name": "SGST",
-                            "amount": d.rate
+                            "amount": str(9.0)
                             }
                         ]
                     })
@@ -67,12 +67,8 @@ def get_quotation(self):
                         "unit_cost": str(row.rate),
                         "tax_List": [
                             {
-                            "name": "CGST",
-                            "amount": d.rate
-                            },
-                            {
-                            "name": "SGST",
-                            "amount": d.rate
+                            "name": "IGST",
+                            "amount": str(9.0)
                             }
                         ]
                     })
