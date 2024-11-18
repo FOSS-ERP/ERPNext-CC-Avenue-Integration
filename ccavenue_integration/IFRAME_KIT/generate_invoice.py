@@ -73,6 +73,7 @@ def get_quotation(self):
                             }
                         ]
                     })
+    print(item_List)
     form_data.update({ "item_List" : item_List })
 
     print("First dynamic")
