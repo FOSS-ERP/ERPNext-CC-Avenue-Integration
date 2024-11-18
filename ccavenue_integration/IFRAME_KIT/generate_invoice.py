@@ -52,11 +52,11 @@ def get_quotation(self):
                         "tax_List": [
                             {
                             "name": "CGST",
-                            "amount": str(flt(d.rate))
+                            "amount": str(d.rate)
                             },
                             {
                             "name": "SGST",
-                            "amount": str(flt(d.rate))
+                            "amount": str(d.rate)
                             }
                         ]
                     })
@@ -69,7 +69,7 @@ def get_quotation(self):
                         "tax_List": [
                             {
                             "name": "IGST",
-                            "amount": str(flt(d.rate))
+                            "amount": str(d.rate)
                             }
                         ]
                     })
