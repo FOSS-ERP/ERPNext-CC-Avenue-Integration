@@ -1,7 +1,7 @@
 import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
-from frappe.utils import flt
+
 def get_quotation(self):
     form_data =  {
         "customer_name": self.customer_name,
@@ -42,8 +42,7 @@ def get_quotation(self):
     taxes = []
     for row in self.items:
         for d in self.taxes:
-            if "CGST" in d.description or "SGST" in d.description:
-                print("taxes")
+            if "CGST" in str(d.description) or "SGST" in str(d.description):
                 item_List.append({
                         "name": row.item_code,
                         "description": row.item_code,
@@ -52,11 +51,11 @@ def get_quotation(self):
                         "tax_List": [
                             {
                             "name": "CGST",
-                            "amount": str(d.rate)
+                            "amount": str(9.0)
                             },
                             {
                             "name": "SGST",
-                            "amount": str(d.rate)
+                            "amount": str(9.0)
                             }
                         ]
                     })
@@ -69,16 +68,15 @@ def get_quotation(self):
                         "tax_List": [
                             {
                             "name": "IGST",
-                            "amount": str(d.rate)
+                            "amount": str(flt(d.rate))
                             }
                         ]
                     })
-    print(item_List)
     form_data.update({ "item_List" : item_List })
 
     print("First dynamic")
     print(type(form_data))
-    form_data = frappe._dict(form_data)
+    form_data = json.dumps(form_data)
     print(form_data)
 
     # form_data =  {
