@@ -76,7 +76,7 @@ def get_quotation(self):
 
     print("First dynamic")
     print(type(form_data))
-    form_data = json.loads(str(form_data))
+    form_data = json.loads(str(frappe._dict(form_data)))
     print(form_data)
 
     # form_data =  {
