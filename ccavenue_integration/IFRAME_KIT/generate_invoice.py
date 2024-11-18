@@ -41,38 +41,23 @@ def get_quotation(self):
     item_List = []
     taxes = []
     for row in self.items:
-        for d in self.taxes:
-            if "CGST" in d.description or "SGST" in d.description: 
-                item_List.append({
-                        "name": row.item_code,
-                        "description": row.item_code,
-                        "quantity": str(int(row.qty)),
-                        "unit_cost": str(row.rate),
-                        "tax_List": [
-                            {
-                            "name": "CGST",
-                            "amount": str(9.0)
-                            },
-                            {
-                            "name": "SGST",
-                            "amount": str(9.0)
-                            }
-                        ]
-                    })
-            if "IGST" in d.description: 
-                item_List.append({
-                        "name": row.item_code,
-                        "description": row.item_code,
-                        "quantity": str(int(row.qty)),
-                        "unit_cost": str(row.rate),
-                        "tax_List": [
-                            {
-                            "name": "IGST",
-                            "amount": str(9.0)
-                            }
-                        ]
-                    })
-    form_data.update(json.dumps({ "item_List" : item_List }))
+        item_List.append({
+                "name": row.item_code,
+                "description": row.item_code,
+                "quantity": str(int(row.qty)),
+                "unit_cost": str(row.rate),
+                "tax_List": [
+                    {
+                    "name": "CGST",
+                    "amount": str(9.0)
+                    },
+                    {
+                    "name": "SGST",
+                    "amount": str(9.0)
+                    }
+                ]
+            })
+    form_data.update({ "item_List" : item_List })
 
     print("First dynamic")
     print(type(form_data))
