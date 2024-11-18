@@ -41,8 +41,8 @@ def get_quotation(self):
     item_List = []
     taxes = []
     for row in self.items:
-        for d in self.taxes:
-            if "CGST" in str(d.description) or "SGST" in str(d.description):
+        for row in self.taxes:
+            if "CGST" in d.description or "SGST" in d.description: 
                 item_List.append({
                         "name": row.item_code,
                         "description": row.item_code,
@@ -51,15 +51,15 @@ def get_quotation(self):
                         "tax_List": [
                             {
                             "name": "CGST",
-                            "amount": str(9.0)
+                            "amount": d.rate
                             },
                             {
                             "name": "SGST",
-                            "amount": str(9.0)
+                            "amount": d.rate
                             }
                         ]
                     })
-            if "IGST" in str(d.description):
+            if "IGST" in d.description: 
                 item_List.append({
                         "name": row.item_code,
                         "description": row.item_code,
@@ -67,8 +67,12 @@ def get_quotation(self):
                         "unit_cost": str(row.rate),
                         "tax_List": [
                             {
-                            "name": "IGST",
-                            "amount": str(flt(d.rate))
+                            "name": "CGST",
+                            "amount": d.rate
+                            },
+                            {
+                            "name": "SGST",
+                            "amount": d.rate
                             }
                         ]
                     })
@@ -76,7 +80,7 @@ def get_quotation(self):
 
     print("First dynamic")
     print(type(form_data))
-    form_data = json.loads(str(frappe._dict(form_data)))
+    form_data = json.dumps(form_data)
     print(form_data)
 
     # form_data =  {
