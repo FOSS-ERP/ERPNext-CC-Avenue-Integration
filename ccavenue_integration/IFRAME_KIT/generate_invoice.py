@@ -41,22 +41,37 @@ def get_quotation(self):
     item_List = []
     taxes = []
     for row in self.items:
-        item_List.append({
-                "name": row.item_code,
-                "description": row.item_code,
-                "quantity": str(int(row.qty)),
-                "unit_cost": str(row.rate),
-                "tax_List": [
-                    {
-                    "name": "CGST",
-                    "amount": str(9.0)
-                    },
-                    {
-                    "name": "SGST",
-                    "amount": str(9.0)
-                    }
-                ]
-            })
+        for d in self.taxes:
+            if "CGST" in str(d.description) or "SGST" in str(d.description):
+                item_List.append({
+                        "name": row.item_code,
+                        "description": row.item_code,
+                        "quantity": str(int(row.qty)),
+                        "unit_cost": str(row.rate),
+                        "tax_List": [
+                            {
+                            "name": "CGST",
+                            "amount": str(flt(d.rate))
+                            },
+                            {
+                            "name": "SGST",
+                            "amount": str(flt(d.rate))
+                            }
+                        ]
+                    })
+            if "IGST" in str(d.description):
+                item_List.append({
+                        "name": row.item_code,
+                        "description": row.item_code,
+                        "quantity": str(int(row.qty)),
+                        "unit_cost": str(row.rate),
+                        "tax_List": [
+                            {
+                            "name": "IGST",
+                            "amount": str(flt(d.rate))
+                            }
+                        ]
+                    })
     form_data.update({ "item_List" : item_List })
 
     print("First dynamic")
