@@ -1,7 +1,7 @@
 import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
-
+from frappe.utils import flt
 def get_quotation(self):
     form_data =  {
         "customer_name": self.customer_name,
