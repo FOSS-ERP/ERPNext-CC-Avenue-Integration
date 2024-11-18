@@ -6,7 +6,7 @@ from frappe.utils import flt
 def get_quotation(self):
     form_data =  {
         "customer_name": self.customer_name,
-        "customer_email_id": "viral@fosserp.com",
+        "customer_email_id": self.contact_email,
         "customer_email_subject": "Invoice",
         "customer_mobile_no": self.contact_mobile,
         "currency": "INR",
@@ -22,22 +22,6 @@ def get_quotation(self):
         "terms_and_conditions": "terms and condition",
         "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
     }
-    
-    # form_data = {
-    #             "customer_name": doc.customer_name,
-    #             "customer_email_id": doc.contact_email,
-    #             "customer_email_subject": "Quotation",
-    #             "customer_mobile_no":"7990225354",
-    #             "valid_for": 2,
-    #             "valid_type": "days",
-    #             "bill_delivery_type":"EMAIL",
-    #             "currency": doc.currency,
-    #             "merchant_reference_no": doc.name,
-    #             "merchant_reference_no1": doc.name,
-    #             "merchant_reference_no2": doc.name,
-    #             "merchant_reference_no3": doc.name,
-    #             "merchant_reference_no4": doc.name,
-    #         }
 
     item_List = []
     taxes = []
@@ -75,50 +59,8 @@ def get_quotation(self):
                     })
     form_data.update({ "item_List" : item_List })
 
-    print("First dynamic")
-    print(type(form_data))
     form_data = json.dumps(frappe._dict(form_data))
-    print(form_data)
 
-    # form_data =  {
-    #     "customer_name": "FOSS ERP",
-    #     "customer_email_id": "viral@fosserp.com",
-    #     "customer_email_subject": "Invoice",
-    #     "customer_mobile_no": "9999999999",
-    #     "currency": "INR",
-    #     "valid_for": "2",
-    #     "valid_type": "days",
-    #     "item_List": [
-    #         {
-    #             "name": "ONDC Onboarding",
-    #             "description": "ONDC Onboarding",
-    #             "quantity": "1",
-    #             "unit_cost": "1180.0",
-    #             "tax_List": [
-    #                 {
-    #                     "name": "CGST",
-    #                     "amount": "9.0"
-    #                 },
-    #                 {
-    #                     "name": "SGST",
-    #                     "amount": "9.0"
-    #                 }
-    #             ]
-    #         }
-    #     ],
-    #     "merchant_reference": "SAL-QTN-2024-00799",
-    #     "merchant_reference_no1": "SAL-QTN-2024-00799",
-    #     "merchant_reference_no2": "SAL-QTN-2024-00799",
-    #     "merchant_reference_no3": "SAL-QTN-2024-00799",
-    #     "merchant_reference_no4": "SAL-QTN-2024-00799",
-    #     "sub_acc_id": "sub1",
-    #     "terms_and_conditions": "terms and condition",
-    #     "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-    # }
-    # print("second hard code")
-    # print(type(form_data))
-    # form_data = json.dumps(form_data)
-    # print(form_data)
     response = ccav_request_handler(form_data, "generateInvoice")
     try:
         response = json.loads(response)
