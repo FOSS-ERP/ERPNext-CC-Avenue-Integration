@@ -4,71 +4,72 @@ import json
 from frappe.utils import flt
 
 def get_quotation(self, method=None):
-    form_data =  {
-        "customer_name": self.customer_name,
-        "customer_email_id": self.contact_email,
-        "customer_email_subject": "Invoice",
-        "customer_mobile_no": self.contact_mobile,
-        "currency": "INR",
-        "valid_for": "2",
-        "valid_type": "days",
-        "item_List": [],
-        "merchant_reference": self.name,
-        "merchant_reference_no1": self.name,
-        "merchant_reference_no2": self.name,
-        "merchant_reference_no3": self.name,
-        "merchant_reference_no4": self.name,
-        "sub_acc_id": "sub1",
-        "terms_and_conditions": "terms and condition",
-        "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-    }
+    if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
+        form_data =  {
+            "customer_name": self.customer_name,
+            "customer_email_id": self.contact_email,
+            "customer_email_subject": "Invoice",
+            "customer_mobile_no": self.contact_mobile,
+            "currency": "INR",
+            "valid_for": "2",
+            "valid_type": "days",
+            "item_List": [],
+            "merchant_reference": self.name,
+            "merchant_reference_no1": self.name,
+            "merchant_reference_no2": self.name,
+            "merchant_reference_no3": self.name,
+            "merchant_reference_no4": self.name,
+            "sub_acc_id": "sub1",
+            "terms_and_conditions": "terms and condition",
+            "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
+        }
 
-    item_List = []
-    taxes = []
-    for row in self.items:
-        for d in self.taxes:
-            if "CGST" in d.description or "SGST" in d.description:
-                item_List.append({
-                        "name": row.item_code,
-                        "description": row.item_code,
-                        "quantity": str(int(row.qty)),
-                        "unit_cost": str(row.rate),
-                        "tax_List": [
-                            {
-                            "name": "CGST",
-                            "amount": str(flt(d.rate))
-                            },
-                            {
-                            "name": "SGST",
-                            "amount": str(flt(d.rate))
-                            }
-                        ]
-                    })
-            if "IGST" in d.description:
-                item_List.append({
-                        "name": row.item_code,
-                        "description": row.item_code,
-                        "quantity": str(int(row.qty)),
-                        "unit_cost": str(row.rate),
-                        "tax_List": [
-                            {
-                            "name": "IGST",
-                            "amount": str(flt(d.rate))
-                            }
-                        ]
-                    })
-    form_data.update({ "item_List" : item_List })
+        item_List = []
+        taxes = []
+        for row in self.items:
+            for d in self.taxes:
+                if "CGST" in d.description or "SGST" in d.description:
+                    item_List.append({
+                            "name": row.item_code,
+                            "description": row.item_code,
+                            "quantity": str(int(row.qty)),
+                            "unit_cost": str(row.rate),
+                            "tax_List": [
+                                {
+                                "name": "CGST",
+                                "amount": str(flt(d.rate))
+                                },
+                                {
+                                "name": "SGST",
+                                "amount": str(flt(d.rate))
+                                }
+                            ]
+                        })
+                if "IGST" in d.description:
+                    item_List.append({
+                            "name": row.item_code,
+                            "description": row.item_code,
+                            "quantity": str(int(row.qty)),
+                            "unit_cost": str(row.rate),
+                            "tax_List": [
+                                {
+                                "name": "IGST",
+                                "amount": str(flt(d.rate))
+                                }
+                            ]
+                        })
+        form_data.update({ "item_List" : item_List })
 
-    form_data = json.dumps(frappe._dict(form_data))
+        form_data = json.dumps(frappe._dict(form_data))
 
-    response = ccav_request_handler(form_data, "generateInvoice")
-    try:
-        response = json.loads(response)
-        self.custom_payment_url = response.get('tiny_url')
-        self.custom_ccavenue_invoice_id = response.get('invoice_id')
-    except Exception as e:
-        frappe.log_error(response)
-        frappe.log_error(e)
+        response = ccav_request_handler(form_data, "generateInvoice")
+        try:
+            response = json.loads(response)
+            self.custom_payment_url = response.get('tiny_url')
+            self.custom_ccavenue_invoice_id = response.get('invoice_id')
+        except Exception as e:
+            frappe.log_error(response)
+            frappe.log_error(e)
 
 
     print(response)
