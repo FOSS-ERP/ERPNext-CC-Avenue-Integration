@@ -71,7 +71,7 @@ def get_parameters():
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
                 order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
-
+                print(str(get_datetime(order_Status_Date_time)))
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
                     if frappe.db.get_value("Quotation", row, 'status') != "Ordered":
                         so = make_sales_order(source_name = row)
