@@ -57,7 +57,7 @@ def get_quotation(self, method=None):
                         )
             item.update({ "tax_List" : tax_List })
             form_data.item_List.append(item)
-    
+
         form_data = json.dumps(frappe._dict(form_data))
         print(form_data)
         response = ccav_request_handler(form_data, "generateInvoice")
@@ -72,7 +72,6 @@ def get_quotation(self, method=None):
             frappe.log_error(e)
 
 
-    print(response)
 
 
 
