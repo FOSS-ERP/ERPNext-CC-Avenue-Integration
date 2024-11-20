@@ -118,7 +118,7 @@ app_license = "MIT"
 
 doc_events = {
 	"Quotation": {
-		"before_submit": "ccavenue_integration.IFRAME_KIT.generate_invoice.get_quotation",
+		"before_submit": "ccavenue_integration.ccavenue_integration.quotation.before_submit",
 	}
 }
 
