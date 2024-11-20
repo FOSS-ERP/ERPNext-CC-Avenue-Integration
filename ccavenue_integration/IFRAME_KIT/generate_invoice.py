@@ -60,8 +60,10 @@ def get_quotation(self, method=None):
     form_data = json.dumps(frappe._dict(form_data))
     print(form_data)
     response = ccav_request_handler(form_data, "generateInvoice")
+    print(response)
     try:
         response = json.loads(response)
+        print(response)
         self.custom_payment_url = response.get('tiny_url')
         self.custom_ccavenue_invoice_id = response.get('invoice_id')
         if not response.get('tiny_url'):
