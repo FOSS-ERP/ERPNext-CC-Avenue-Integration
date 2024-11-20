@@ -24,42 +24,40 @@ def get_quotation(self, method=None):
             "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
         }
 
-        item_List = []
-        taxes = []
+        
         for row in self.items:
+            tax_list = []
+            item = {
+                "name": row.item_code,
+                "description": row.item_code,
+                "quantity": str(int(row.qty)),
+                "unit_cost": str(row.rate),
+            }
             for d in self.taxes:
-                if "CGST" in d.description or "SGST" in d.description:
-                    item_List.append({
-                            "name": row.item_code,
-                            "description": row.item_code,
-                            "quantity": str(int(row.qty)),
-                            "unit_cost": str(row.rate),
-                            "tax_List": [
+                if "CGST" in d.description:
+                    tax_list.append(
                                 {
                                 "name": "CGST",
                                 "amount": str(flt(d.rate))
-                                },
-                                {
-                                "name": "SGST",
-                                "amount": str(flt(d.rate))
-                                }
-                            ]
-                        })
+                                },  
+                        )
+                if "SGST" in d.description:
+                    tax_list.append(
+                        {
+                        "name": "SGST",
+                        "amount": str(flt(d.rate))
+                        }  
+                    )
                 if "IGST" in d.description:
-                    item_List.append({
-                            "name": row.item_code,
-                            "description": row.item_code,
-                            "quantity": str(int(row.qty)),
-                            "unit_cost": str(row.rate),
-                            "tax_List": [
+                    tax_list.append(
                                 {
                                 "name": "IGST",
                                 "amount": str(flt(d.rate))
                                 }
-                            ]
-                        })
-        form_data.update({ "item_List" : item_List })
-
+                        )
+            item.update({ "tax_List" : tax_List })
+            form_data.item_List.append(item)
+    
         form_data = json.dumps(frappe._dict(form_data))
         print(form_data)
         response = ccav_request_handler(form_data, "generateInvoice")
