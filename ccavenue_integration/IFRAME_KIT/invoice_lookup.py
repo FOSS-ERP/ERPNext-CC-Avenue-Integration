@@ -1,5 +1,5 @@
 import frappe
-from frappe.utils import getdate, now
+from frappe.utils import getdate, now, get_datetime
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
 from ccavenue_integration.IFRAME_KIT.ccavutil import encrypt , decrypt
@@ -12,8 +12,7 @@ from erpnext.selling.doctype.quotation.quotation import make_sales_order
 
 
 def get_parameters():
-    # get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Pending", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
-    get_quotation_list = ["SAL-QTN-2024-00968", 'SAL-QTN-2024-00967']
+    get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Pending", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
     for row in get_quotation_list:
         doc = frappe.get_doc("Quotation", row)
         if not doc.custom_ccavenue_invoice_id:
@@ -70,6 +69,7 @@ def get_parameters():
 
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
+                order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
 
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
                     if frappe.db.get_value("Quotation", row, 'status') != "Ordered":
@@ -80,6 +80,7 @@ def get_parameters():
                         so.submit()
                         frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
                         frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
+                        frappe.db.set_value("Quotation", row, 'custom_payment_received_time', get_datetime(order_Status_Date_time))
                         frappe.db.commit()
                 if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
                     frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
