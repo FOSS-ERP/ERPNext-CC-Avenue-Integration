@@ -8,7 +8,7 @@ def get_quotation(self, method=None):
         "customer_name": self.customer_name,
         "customer_email_id": self.contact_email,
         "customer_email_subject": "Invoice",
-        "customer_mobile_no": self.contact_mobile,
+        "customer_mobile_no": self.contact_mobile.replace(" ", ''),
         "currency": "INR",
         "valid_for": "2",
         "valid_type": "days",
