@@ -1,7 +1,7 @@
 import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
-from frappe.utils import flt
+from frappe.utils import flt, getdate
 
 def get_quotation(self, method=None):
     form_data =  {
@@ -66,6 +66,7 @@ def get_quotation(self, method=None):
         print(response)
         self.custom_payment_url = response.get('tiny_url')
         self.custom_ccavenue_invoice_id = response.get('invoice_id')
+        self.custom_proforma_invoice_date =  getdate()
         if not response.get('tiny_url'):
             frappe.throw(str(response))
     except Exception as e:
