@@ -4,74 +4,76 @@ import json
 from frappe.utils import flt, getdate
 
 def get_quotation(self, method=None):
-    form_data =  {
-        "customer_name": self.customer_name,
-        "customer_email_id": self.contact_email,
-        "customer_email_subject": "Invoice",
-        "customer_mobile_no": self.contact_mobile.replace(" ", ''),
-        "currency": "INR",
-        "valid_for": "2",
-        "valid_type": "days",
-        "item_List": [],
-        "merchant_reference": self.name,
-        "merchant_reference_no1": self.name,
-        "merchant_reference_no2": self.name,
-        "merchant_reference_no3": self.name,
-        "merchant_reference_no4": self.name,
-        "sub_acc_id": "sub1",
-        "terms_and_conditions": "terms and condition",
-        "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
-    }
-
-    
-    for row in self.items:
-        tax_List = []
-        item = {
-            "name": row.item_code,
-            "description": row.item_code,
-            "quantity": str(int(row.qty)),
-            "unit_cost": str(row.rate),
+    doc = frappe.get_doc("CCAvenue Settings")
+    if doc.enable:
+        form_data =  {
+            "customer_name": self.customer_name,
+            "customer_email_id": self.contact_email,
+            "customer_email_subject": "Invoice",
+            "customer_mobile_no": self.contact_mobile.replace(" ", ''),
+            "currency": "INR",
+            "valid_for": "2",
+            "valid_type": "days",
+            "item_List": [],
+            "merchant_reference": self.name,
+            "merchant_reference_no1": self.name,
+            "merchant_reference_no2": self.name,
+            "merchant_reference_no3": self.name,
+            "merchant_reference_no4": self.name,
+            "sub_acc_id": "sub1",
+            "terms_and_conditions": "terms and condition",
+            "sms_content": "Pls payyourLegalEntity_Namebill#Invoice_IDfor Invoice_Currency Invoice_Amount online at Pay_Link."
         }
-        for d in self.taxes:
-            if "CGST" in d.description:
-                tax_List.append(
-                            {
-                            "name": "CGST",
-                            "amount": str(flt(d.rate))
-                            },  
-                    )
-            if "SGST" in d.description:
-                tax_List.append(
-                    {
-                    "name": "SGST",
-                    "amount": str(flt(d.rate))
-                    }  
-                )
-            if "IGST" in d.description:
-                tax_List.append(
-                            {
-                            "name": "IGST",
-                            "amount": str(flt(d.rate))
-                            }
-                    )
-        item.update({ "tax_List" : tax_List })
-        form_data["item_List"].append(item)
 
-    form_data = json.dumps(frappe._dict(form_data))
-    print(form_data)
-    response = ccav_request_handler(form_data, "generateInvoice")
-    print(response)
-    try:
-        response = json.loads(response)
+        
+        for row in self.items:
+            tax_List = []
+            item = {
+                "name": row.item_code,
+                "description": row.item_code,
+                "quantity": str(int(row.qty)),
+                "unit_cost": str(row.rate),
+            }
+            for d in self.taxes:
+                if "CGST" in d.description:
+                    tax_List.append(
+                                {
+                                "name": "CGST",
+                                "amount": str(flt(d.rate))
+                                },  
+                        )
+                if "SGST" in d.description:
+                    tax_List.append(
+                        {
+                        "name": "SGST",
+                        "amount": str(flt(d.rate))
+                        }  
+                    )
+                if "IGST" in d.description:
+                    tax_List.append(
+                                {
+                                "name": "IGST",
+                                "amount": str(flt(d.rate))
+                                }
+                        )
+            item.update({ "tax_List" : tax_List })
+            form_data["item_List"].append(item)
+
+        form_data = json.dumps(frappe._dict(form_data))
+        print(form_data)
+        response = ccav_request_handler(form_data, "generateInvoice")
         print(response)
-        self.custom_payment_url = response.get('tiny_url')
-        self.custom_ccavenue_invoice_id = response.get('invoice_id')
-        self.custom_proforma_invoice_date =  get_datetime()
-        if not response.get('tiny_url'):
-            frappe.throw(str(response))
-    except Exception as e:
-        frappe.log_error(response)
-        frappe.log_error(e)
+        try:
+            response = json.loads(response)
+            print(response)
+            self.custom_payment_url = response.get('tiny_url')
+            self.custom_ccavenue_invoice_id = response.get('invoice_id')
+            self.custom_proforma_invoice_date =  get_datetime()
+            if not response.get('tiny_url'):
+                frappe.throw(str(response))
+        except Exception as e:
+            frappe.log_error(response)
+            frappe.log_error(e)
 
 
 
