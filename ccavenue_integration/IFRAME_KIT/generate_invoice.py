@@ -1,7 +1,7 @@
 import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
-from frappe.utils import flt, getdate
+from frappe.utils import flt, getdate, get_datetime
 
 def get_quotation(self, method=None):
     doc = frappe.get_doc("CCAvenue Settings")
