@@ -72,7 +72,6 @@ def get_quotation(self, method=None):
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
             self.custom_proforma_invoice_date =  get_datetime()
         except Exception as e:
-            frappe.log_error(response)
             frappe.log_error(e)
 
 
