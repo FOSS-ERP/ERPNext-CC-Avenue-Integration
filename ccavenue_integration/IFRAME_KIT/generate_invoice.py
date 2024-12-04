@@ -71,8 +71,6 @@ def get_quotation(self, method=None):
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
             self.custom_proforma_invoice_date =  get_datetime()
-            if not response.get('tiny_url'):
-                frappe.throw(str(response))
         except Exception as e:
             frappe.log_error(response)
             frappe.log_error(e)
