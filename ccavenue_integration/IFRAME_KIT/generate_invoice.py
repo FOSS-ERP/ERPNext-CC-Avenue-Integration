@@ -5,7 +5,7 @@ from frappe.utils import flt, getdate
 
 def get_quotation(self, method=None):
     doc = frappe.get_doc("CCAvenue Settings")
-    if not len(self.txes):
+    if not len(self.taxes):
         frappe.throw("Taxes are not added in this quotation")
     if doc.enable:
         form_data =  {
