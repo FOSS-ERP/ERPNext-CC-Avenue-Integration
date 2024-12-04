@@ -17,7 +17,7 @@ def get_quotation(self, method=None):
             "valid_for": "2",
             "valid_type": "days",
             "item_List": [],
-            "merchant_reference_no": "-",
+            "merchant_reference_no": self.name,
             "merchant_reference_no1": self.custom_customer_gstin or self.name,
             "merchant_reference_no2": self.name,
             "merchant_reference_no3": self.name,
