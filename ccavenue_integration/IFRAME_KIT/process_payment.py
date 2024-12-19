@@ -98,7 +98,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                     <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("qty")}</td>
                     <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">SGST {doc.get('taxes')[0].get('rate')}%<br>(INR {doc.get("taxes")[0].get("tax_amount")})</td>
                     <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">CGST {doc.get('taxes')[1].get('rate')}%<br>(INR {doc.get("taxes")[1].get("tax_amount")})</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.amount + doc.get("taxes")[0].get("tax_amount") + doc.get("taxes")[1].get("tax_amount")}</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("amount") + doc.get("taxes")[0].get("tax_amount") + doc.get("taxes")[1].get("tax_amount")}</td>
                 </tr>
             """
         message += f"""        
