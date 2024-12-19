@@ -18,7 +18,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
         # frappe.db.set_value("Quotation", doc.get('name'), "custom_payment_url", response.get("custom_payment_url"))
         frappe.db.set_value("Quotation", doc.get('name'), "custom_ccavenue_invoice_id", response.get("custom_ccavenue_invoice_id"))
         frappe.db.set_value("Quotation", doc.get('name'), "custom_proforma_invoice_date", now())
-        message = """
+        message = f"""
             <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
         <tbody>
         <tr>
@@ -30,7 +30,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tbody>
                                 <tr>
-                                    <td width="55%" height="18" align="left" valign="top">	{doc.company}											</td>
+                                    <td width="55%" height="18" align="left" valign="top">	{doc.get("company")}											</td>
                                     <td width="45%" rowspan="3" align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737">
                                         <table width="95%" border="0" cellspacing="0" cellpadding="5" style="border:solid 1px #e4e6eb;border-left-width:0px;border-bottom-width:0px">
                                             <tbody>
@@ -45,11 +45,11 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                                                 <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">
                                                     <strong>Enterprise Name &amp; Address:</strong>
                                                 </td>
-                                                <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;word-break:break-all;table-layout:fixed">{doc.name}</td>
+                                                <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;word-break:break-all;table-layout:fixed">{doc.get("name")}</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">																<strong>Customer GST number:</strong>														</td>
-                                                <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;word-break:break-all;table-layout:fixed">{doc.custom_customer_gstin}</td>
+                                                <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;word-break:break-all;table-layout:fixed">{doc.get("custom_customer_gstin")}</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">																<strong>Date:</strong>															</td>
@@ -91,21 +91,21 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
         for row in doc.get('items'):
             message += f"""
                  <tr>
-                    <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.item_name}</td>
-                    <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.description}</td>
+                    <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get('item_name')}</td>
+                    <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get('description')}</td>
                     <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">INR</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.rate}</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.qty}</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">SGST {doc.taxes[0].rate}%<br>(INR {doc.taxes[0].tax_amount})	</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">CGST {doc.taxes[1].rate}%<br>(INR {doc.taxes[1].tax_amount})</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.amount + doc.taxes[0].tax_amount + doc.taxes[1].tax_amount}</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("rate")}</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("qty")}</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">SGST {doc.get('taxes')[0].get('rate')}%<br>(INR {doc.get("taxes")[0].get("tax_amount")})</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">CGST {doc.get('taxes')[1].get('rate')}%<br>(INR {doc.get("taxes")[1].get("tax_amount")})</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.amount + doc.get("taxes")[0].get("tax_amount") + doc.get("taxes")[1].get("tax_amount")}</td>
                 </tr>
             """
         message += f"""        
                                     <tr>
                                         <td colspan="4" align="left" valign="top">&nbsp;</td>
                                         <td colspan="3" align="left" valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">Total Amount Due</td>
-                                        <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;border-left-width:0px">{doc.grand_total}</td>
+                                        <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;border-left-width:0px">{doc.get("grand_total")}</td>
                                     </tr>
                                     </tbody>
                                 </table>
