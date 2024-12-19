@@ -88,7 +88,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                                     <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">Line Total</td>
                                 </tr>
         """
-        for row in doc.items:
+        for row in doc.get('items'):
             message += f"""
                  <tr>
                     <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.item_name}</td>
