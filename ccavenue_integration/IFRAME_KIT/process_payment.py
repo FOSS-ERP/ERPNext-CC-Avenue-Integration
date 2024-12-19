@@ -60,10 +60,10 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td height="10" align="left" valign="top">													<img src="https://ci3.googleusercontent.com/meips/ADKq_NYvDs41vFlQUiFaSMyyQPUr3Pl4ULqpgal7c5d3qDw6aRvgmi4hRSkdId1ZEf2M4nip_RCQj2ELlkmvqzNsvfsY8-9g7EfnrsMzPI9FZQ=s0-d-e1-ft#https://login.ccavenue.com/apis//images/blank_spacer.gif" width="1" height="10" class="CToWUd" data-bit="iit">												</td>
+                                    <td height="10" align="left" valign="top"><img src="https://ci3.googleusercontent.com/meips/ADKq_NYvDs41vFlQUiFaSMyyQPUr3Pl4ULqpgal7c5d3qDw6aRvgmi4hRSkdId1ZEf2M4nip_RCQj2ELlkmvqzNsvfsY8-9g7EfnrsMzPI9FZQ=s0-d-e1-ft#https://login.ccavenue.com/apis//images/blank_spacer.gif" width="1" height="10" class="CToWUd" data-bit="iit"></td>
                                 </tr>
                                 <tr>
-                                    <td height="18" align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;line-height:16px">													<strong>CATALYST MANAGEMENT SERVICES PVT LTD</strong><br>													25 4TH FLOOR RAGHAVENDRA NILAYA 1ST MAIN ROAD AECS LAYOUT BENGALURU KARNATAKA												<br>	<strong>Telephone: </strong>9945972835&nbsp;&nbsp;|&nbsp;&amp;nbsp<strong>Email:</strong> <a href="mailto:business.catalyst@catalysts.org" target="_blank">business.catalyst@catalysts.<wbr>org</a><br><strong>PAN No.:</strong> AAACF3153A</td>
+                                    <td height="18" align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;line-height:16px"><strong>CATALYST MANAGEMENT SERVICES PVT LTD</strong><br>25 4TH FLOOR RAGHAVENDRA NILAYA 1ST MAIN ROAD AECS LAYOUT BENGALURU KARNATAKA<br><strong>Telephone: </strong>9945972835&nbsp;&nbsp;|&nbsp;&amp;nbsp<strong>Email:</strong> <a href="mailto:business.catalyst@catalysts.org" target="_blank">business.catalyst@catalysts.<wbr>org</a><br><strong>PAN No.:</strong> AAACF3153A</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -71,7 +71,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tbody>
                                 <tr>
-                                    <td height="35" align="left" valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737">													<strong>Customer Name: </strong>FOSS ERP												<strong>&nbsp;&nbsp;|&nbsp;&nbsp;Email: </strong><a href="mailto:viral@fosserp.com" target="_blank">{doc.contact_email}</a><br></td>
+                                    <td height="35" align="left" valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737"><strong>Customer Name: </strong>FOSS ERP<strong>&nbsp;&nbsp;|&nbsp;&nbsp;Email: </strong><a href="mailto:viral@fosserp.com" target="_blank">{doc.get("contact_email")}</a><br></td>
                                 </tr>
                                 </tbody>
                             </table>
