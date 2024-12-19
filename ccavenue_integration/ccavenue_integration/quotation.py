@@ -2,7 +2,7 @@ import frappe
 from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
 
-def before_submit(self, method):
+def process_partial_payment(self, method=None):
     if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
         doc = frappe.get_doc("CCAvenue Settings")
         form_data = {
@@ -26,6 +26,7 @@ def before_submit(self, method):
             response = json.loads(response)
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
+            return { "custom_payment_url" : response.get('tiny_url'), 'custom_ccavenue_invoice_id' : response.get('invoice_id')}
         except Exception as e:
             frappe.log_error(response)
             frappe.log_error(e)

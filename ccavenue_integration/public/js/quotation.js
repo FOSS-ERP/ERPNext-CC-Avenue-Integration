@@ -6,3 +6,19 @@ frappe.ui.form.on('Quotation', {
     },
     
 })
+
+frappe.ui.form.on('Payment Schedule', {
+    generate_payment_link:(frm, cdt, cdn)=>{
+        if (frm.doc.__unsaved){
+            frappe.throw("First Save the document first")
+        }
+        let d = locals[cdt][cdn]
+        frappe.call({
+            method : "ccavenue_integration.IFRAME_KIT.process_payment.trigger_partial_ccavanue_payments",
+            args : {
+                doc : frm.doc,
+                grand_total : d.payment_amount
+            }
+        })
+    }
+})
