@@ -129,7 +129,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
             </tbody>
         </table>
             """
-        frappe.sendmail(recipients=[doc.contact_email], content=message, subject="Business Catalyst service")
+        frappe.sendmail(recipients=[doc.get("contact_email")], content=message, subject="Business Catalyst service")
 
         return "Success"
     except:
