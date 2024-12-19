@@ -4,7 +4,6 @@ from ccavenue_integration.IFRAME_KIT.generate_invoice import process_full_paymen
 from ccavenue_integration.ccavenue_integration.quotation import process_partial_payment
 
 def trigger_ccavanue_payments(self, method):
-    frappe.throw("Not to submit")
     if not self.is_partial_payment_quotation:
         process_full_payment_invoice(self)
 
