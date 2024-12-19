@@ -13,6 +13,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
     doc['grand_total'] =  grand_total
     try:
         response = process_partial_payment(frappe._dict(doc))
+        frappe.msgprint(str(response))
         frappe.db.set_value("Quotation", doc.get('name'), "custom_payment_url", response.get("custom_payment_url"))
         frappe.db.set_value("Quotation", doc.get('name'), "custom_ccavenue_invoice_id", response.get("custom_ccavenue_invoice_id"))
         return "Success"
