@@ -18,6 +18,11 @@ frappe.ui.form.on('Payment Schedule', {
             args : {
                 doc : frm.doc,
                 grand_total : d.payment_amount
+            },
+            callback:(r)=>{
+                if (r.message){
+                    frappe.msgprint("Payment link is successfulli generate")
+                }
             }
         })
     }
