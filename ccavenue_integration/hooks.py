@@ -120,7 +120,7 @@ doctype_js = {"Quotation" : "public/js/quotation.js"}
 
 doc_events = {
 	"Quotation": {
-		"before_submit": "ccavenue_integration.IFRAME_KIT.generate_invoice.get_quotation",
+		"before_submit": "ccavenue_integration.IFRAME_KIT.process_payment.trigger_ccavanue_payments",
 	}
 }
 
