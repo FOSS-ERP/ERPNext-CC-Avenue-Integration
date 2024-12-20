@@ -108,8 +108,8 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
         message += f"""        
                                     <tr>
                                         <td colspan="4" align="left" valign="top">&nbsp;</td>
-                                        <td colspan="3" align="left" valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">Total Amount Due</td>
-                                        <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;border-left-width:0px">{frappe.utils.fmt_money(doc.get("grand_total"), currency=currency)}</td>
+                                        <td colspan="3" align="left" valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">Total Payable Amount</td>
+                                        <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;border-left-width:0px">{frappe.utils.fmt_money(doc.get("base_grand_total"), currency=currency)}</td>
                                     </tr>
                                     </tbody>
                                 </table>
