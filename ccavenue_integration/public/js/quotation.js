@@ -9,21 +9,26 @@ frappe.ui.form.on('Quotation', {
 
 frappe.ui.form.on('Payment Schedule', {
     generate_payment_link:(frm, cdt, cdn)=>{
+        if (frm.doc.docstatus != 1){
+            ffrappe.throw({message:__("First Submit the document."), title:__("Message")})
+        }
         if (frm.doc.__unsaved){
             frappe.throw({message:__("First Save the document."), title:__("Message")})
         }
-        let d = locals[cdt][cdn]
-        frappe.call({
-            method : "ccavenue_integration.IFRAME_KIT.process_payment.trigger_partial_ccavanue_payments",
-            args : {
-                doc : frm.doc,
-                grand_total : d.payment_amount
-            },
-            callback:(r)=>{
-                if (r.message){
-                    frappe.msgprint("Payment link is successfulli generate")
+        if (!frm.doc.custom_ccavenue_invoice_id){
+            let d = locals[cdt][cdn]
+            frappe.call({
+                method : "ccavenue_integration.IFRAME_KIT.process_payment.trigger_partial_ccavanue_payments",
+                args : {
+                    doc : frm.doc,
+                    grand_total : d.payment_amount
+                },
+                callback:(r)=>{
+                    if (r.message){
+                        frappe.msgprint("Payment link is successfulli generate")
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 })

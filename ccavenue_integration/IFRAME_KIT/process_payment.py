@@ -94,18 +94,21 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
                     <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get('item_name')}</td>
                     <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get('description')}</td>
                     <td align="left" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">INR</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("rate")}</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{frappe.utils.fmt_money(doc.get("rate"), currency=currency)}</td>
                     <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("qty")}</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">SGST {doc.get('taxes')[0].get('rate')}%<br>(INR {doc.get("taxes")[0].get("tax_amount")})</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">CGST {doc.get('taxes')[1].get('rate')}%<br>(INR {doc.get("taxes")[1].get("tax_amount")})</td>
-                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{row.get("amount") + doc.get("taxes")[0].get("tax_amount") + doc.get("taxes")[1].get("tax_amount")}</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">SGST {doc.get('taxes')[0].get('rate')}%<br>(INR {frappe.utils.fmt_money(doc.get("taxes")[0].get("tax_amount"), currency=currency)})</td>
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">CGST {doc.get('taxes')[1].get('rate')}%<br>(INR {frappe.utils.fmt_money(doc.get("taxes")[1].get("tax_amount"), currency=currency)})</td>
+                """
+            total_amount = row.get("amount") + doc.get("taxes")[0].get("tax_amount") + doc.get("taxes")[1].get("tax_amount")
+            message += f"""
+                    <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#373737;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">{frappe.utils.fmt_money(total_amount, currency=currency)}</td>
                 </tr>
             """
         message += f"""        
                                     <tr>
                                         <td colspan="4" align="left" valign="top">&nbsp;</td>
                                         <td colspan="3" align="left" valign="middle" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb">Total Amount Due</td>
-                                        <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;border-left-width:0px">{doc.get("grand_total")}</td>
+                                        <td align="right" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#373737;background-color:#f7f7f7;border-left:solid 1px #e4e6eb;border-bottom:solid 1px #e4e6eb;border-left-width:0px">{frappe.utils.fmt_money(doc.get("grand_total"), currency=currency)}</td>
                                     </tr>
                                     </tbody>
                                 </table>
