@@ -12,7 +12,7 @@ def trigger_ccavanue_payments(self, method):
 def trigger_partial_ccavanue_payments(doc, grand_total):
     doc = json.loads(doc)
     doc['grand_total'] =  grand_total
-    currency = doc.currency
+    currency = doc.get('currency')
     try:
         response = process_partial_payment(frappe._dict(doc))
         frappe.msgprint("Payment link generated successfully")
