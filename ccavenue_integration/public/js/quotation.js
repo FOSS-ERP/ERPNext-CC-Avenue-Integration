@@ -10,7 +10,7 @@ frappe.ui.form.on('Quotation', {
 frappe.ui.form.on('Payment Schedule', {
     generate_payment_link:(frm, cdt, cdn)=>{
         if (frm.doc.docstatus != 1){
-            ffrappe.throw({message:__("First Submit the document."), title:__("Message")})
+            frappe.throw({message:__("First Submit the document."), title:__("Message")})
         }
         if (frm.doc.__unsaved){
             frappe.throw({message:__("First Save the document."), title:__("Message")})
