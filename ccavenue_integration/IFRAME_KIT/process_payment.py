@@ -5,7 +5,14 @@ from ccavenue_integration.IFRAME_KIT.generate_invoice import process_full_paymen
 from ccavenue_integration.ccavenue_integration.quotation import process_partial_payment
 
 def trigger_ccavanue_payments(self, method):
-    if not self.is_partial_payment_quotation:
+    aggr = False
+    if self.opportunity:
+        doc = frappe.get_doc("Opportunity", self.opportunity)
+        if len(doc.custom_aggregator) > 0:
+            for row in doc.custom_aggregator:
+                if row.get("aggregator_name") ==  "Retail":
+                    aggr = True
+    if not self.is_partial_payment_quotation and aggr:
         process_full_payment_invoice(self)
 
 @frappe.whitelist()
