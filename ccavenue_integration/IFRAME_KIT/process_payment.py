@@ -12,6 +12,8 @@ def trigger_ccavanue_payments(self, method):
             for row in doc.custom_aggregator:
                 if row.get("aggregator_name") ==  "Retail":
                     aggr = True
+        else:
+            frappe.throw("Please Update Aggregator in Opportunity {0}".format(self.opportunity))
     if not self.is_partial_payment_quotation and aggr:
         process_full_payment_invoice(self)
 
