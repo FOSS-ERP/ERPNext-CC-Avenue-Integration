@@ -3,6 +3,8 @@ from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_hand
 import json
 from frappe.utils import flt, getdate, get_datetime
 
+
+@frappe.whitelist()
 def process_full_payment_invoice(self):
     doc = frappe.get_doc("CCAvenue Settings")
     if not len(self.taxes):

@@ -3,6 +3,19 @@ frappe.ui.form.on('Quotation', {
         if(!frm.doc.taxes_and_charges && frm.doc.docstatus < 1){
             frm.set_value("taxes_and_charges", 'Output GST In-state - BC')
         }
+        if (frm.doc.docstatus == 1 && (frappe.user.has_role("Purchase Admin") || frappe.user.has_role("System Manager"))){
+            frm.add_custom_button(__("Send Payment Link"), () => {
+				frappe.call({
+                    method : "ccavenue_integration.IFRAME_KIT.process_payment.send_email_link",
+                    args : {
+                        docname : frm.doc.name
+                    },
+                    callback : () =>{
+
+                    }
+                })
+			});
+        }
     },
     
 })

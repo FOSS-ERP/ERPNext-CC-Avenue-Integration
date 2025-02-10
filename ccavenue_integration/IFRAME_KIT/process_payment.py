@@ -148,3 +148,20 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
     except:
         frappe.log_error("error")
 
+
+
+@frappe.whitelist()
+def send_email_link(docname):
+    self = frappe.get_doc("Quotation", docname)
+    aggr = False
+    if self.opportunity:
+        doc = frappe.get_doc("Opportunity", self.opportunity)
+        if len(doc.custom_aggregator) > 0:
+            for row in doc.custom_aggregator:
+                if row.get("aggregator_name") ==  "Retail":
+                    aggr = True
+        else:
+            frappe.throw("Please Update Aggregator in Opportunity {0}".format(self.opportunity))
+    
+    if not self.is_partial_payment_quotation and aggr:
+        process_full_payment_invoice(self)
