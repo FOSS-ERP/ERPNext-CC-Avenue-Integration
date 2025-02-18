@@ -5,7 +5,7 @@ from frappe.utils import flt, getdate, get_datetime
 
 
 @frappe.whitelist()
-def process_full_payment_invoice(self):
+def process_full_payment_invoice(self, button=False):
     if not self.grand_total > 0:
         return
     doc = frappe.get_doc("CCAvenue Settings")
@@ -75,6 +75,10 @@ def process_full_payment_invoice(self):
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
             self.custom_proforma_invoice_date =  get_datetime()
+            if button:
+                frappe.db.set_value("Quotation", self.name, "custom_payment_url", response.get('tiny_url'))
+                frappe.db.set_value("Quotation", self.name, "custom_ccavenue_invoice_id", response.get('invoice_id'))
+                frappe.db.set_value("Quotation", self.name, "custom_proforma_invoice_date", get_datetime())
         except Exception as e:
             frappe.log_error(e)
 

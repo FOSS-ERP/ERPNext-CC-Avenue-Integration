@@ -151,7 +151,7 @@ def trigger_partial_ccavanue_payments(doc, grand_total):
 
 
 @frappe.whitelist()
-def send_email_link(docname):
+def send_email_link(docname, button):
     self = frappe.get_doc("Quotation", docname)
     aggr = False
     if self.opportunity:
@@ -164,4 +164,4 @@ def send_email_link(docname):
             frappe.throw("Please Update Aggregator in Opportunity {0}".format(self.opportunity))
     
     if not self.is_partial_payment_quotation and aggr:
-        process_full_payment_invoice(self)
+        process_full_payment_invoice(self, button)
