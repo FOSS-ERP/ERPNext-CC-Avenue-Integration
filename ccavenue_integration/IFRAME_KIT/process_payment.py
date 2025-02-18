@@ -14,7 +14,7 @@ def trigger_ccavanue_payments(self, method):
                     aggr = True
         else:
             frappe.throw("Please Update Aggregator in Opportunity {0}".format(self.opportunity))
-    if not self.is_partial_payment_quotation and aggr:
+    if not self.is_partial_payment_quotation and aggr and self.grand_total > 0:
         process_full_payment_invoice(self)
 
 @frappe.whitelist()

@@ -6,6 +6,8 @@ from frappe.utils import flt, getdate, get_datetime
 
 @frappe.whitelist()
 def process_full_payment_invoice(self):
+    if not self.grand_total > 0:
+        return
     doc = frappe.get_doc("CCAvenue Settings")
     if not len(self.taxes):
         frappe.throw("Taxes are not added in this quotation")
