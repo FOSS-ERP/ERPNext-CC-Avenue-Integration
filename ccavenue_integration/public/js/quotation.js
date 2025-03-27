@@ -8,7 +8,8 @@ frappe.ui.form.on('Quotation', {
 				frappe.call({
                     method : "ccavenue_integration.IFRAME_KIT.process_payment.send_email_link",
                     args : {
-                        docname : frm.doc.name
+                        docname : frm.doc.name,
+                        button : true
                     },
                     callback : () =>{
 
