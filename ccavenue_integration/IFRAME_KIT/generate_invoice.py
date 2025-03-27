@@ -9,7 +9,7 @@ def process_full_payment_invoice(self):
     doc = frappe.get_doc("CCAvenue Settings")
     if not len(self.taxes):
         frappe.throw("Taxes are not added in this quotation")
-    if doc.enable:
+    if doc.enable and frappe.session.user in ["amarnath@catalysts.org", "nagaveni@fosserp.com"]:
         form_data =  {
             "customer_name": self.customer_name,
             "customer_email_id": self.contact_email,
