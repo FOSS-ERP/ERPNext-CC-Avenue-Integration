@@ -70,8 +70,9 @@ def get_parameters():
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
                 order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
-                print(str(get_datetime(order_Status_Date_time)))
-                if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered":
+                order_Amt = json_data.get('invoice_List')[0].get("order_Amt")
+
+                if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered" and order_Amt == doc.grand_total:
                     if frappe.db.get_value("Quotation", row, 'status') != "Ordered" and not frappe.db.exists("Sales Order Item", {"prevdoc_docname" : row}):
                         so = make_sales_order(source_name = row)
                         so.payment_schedule[0].due_date = getdate()
@@ -82,10 +83,10 @@ def get_parameters():
                         frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                         frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
                         frappe.db.commit()
-                if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
-                    frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
-                    frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
-                    frappe.db.commit()
+                # if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
+                #     frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
+                #     frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
+                #     frappe.db.commit()
             except Exception as e:
                 frappe.log_error(e)
 
