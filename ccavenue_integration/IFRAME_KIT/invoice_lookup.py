@@ -79,9 +79,14 @@ def get_parameters():
                         so.delivery_date = getdate()
                         so.save()
                         so.submit()
-                        frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
-                        frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
-                        frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
+                        qo_doc = frappe.get_doc("Quotation", row)
+                        qo_doc.paid_amount = order_Gross_Amt
+                        qo_doc.custom_payment_status = invoice_status
+                        qo_doc.custom_payment_received_date = get_datetime(order_Status_Date_time)
+                        qo_doc.save()
+                        # frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
+                        # frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
+                        # frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
                         frappe.db.commit()
                 # if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
                 #     frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
