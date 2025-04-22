@@ -24,8 +24,8 @@ def process_partial_payment(self, method=None):
         response = ccav_request_handler(form_data, "generateQuickInvoice")
         try:
             response = json.loads(response)
-            if frappe.session.user == "Administrator":
-                frappe.msgprint(str(response))
+            if response.get("error_desc") != "" and response.get("error_desc"):
+                frappe.throw("Faild to Generate Link, Error Desc : {0}, Error Code : {1}".format(response.get("error_desc"), response.get("error_code")))
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
             return { "custom_payment_url" : response.get('tiny_url'), 'custom_ccavenue_invoice_id' : response.get('invoice_id')}
