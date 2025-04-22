@@ -71,6 +71,8 @@ def process_full_payment_invoice(self, button=False):
         print(response)
         try:
             response = json.loads(response)
+            if frappe.session.user == "Administrator":
+                frappe.msgprint(str(response))
             print(response)
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
