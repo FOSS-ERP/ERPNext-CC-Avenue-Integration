@@ -6,7 +6,7 @@ def process_partial_payment(self, method=None):
     if frappe.db.get_single_value('CCAvenue Settings', 'enable'):
         doc = frappe.get_doc("CCAvenue Settings")
         form_data = {
-                "customer_name": self.customer_name.replace,
+                "customer_name": self.customer_name.replace("&"," "),
                 "customer_email_id": self.contact_email,
                 "customer_email_subject": "Quotation",
                 "valid_for": 2,
