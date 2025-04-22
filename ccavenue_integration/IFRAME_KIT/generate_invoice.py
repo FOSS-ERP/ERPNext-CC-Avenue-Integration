@@ -71,8 +71,8 @@ def process_full_payment_invoice(self, button=False):
         print(response)
         try:
             response = json.loads(response)
-            if frappe.session.user == "Administrator":
-                frappe.msgprint(str(response))
+            if (response.get("error_desc") != "" and response.get("error_desc")) or response.get("error_code"):
+                frappe.throw("Faild to Generate Link, Error Desc : {0}, Error Code : {1}".format(response.get("error_desc"), response.get("error_code")))
             print(response)
             self.custom_payment_url = response.get('tiny_url')
             self.custom_ccavenue_invoice_id = response.get('invoice_id')
