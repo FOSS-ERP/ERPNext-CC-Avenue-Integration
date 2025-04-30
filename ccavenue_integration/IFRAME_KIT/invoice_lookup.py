@@ -66,7 +66,8 @@ def get_parameters():
                 json_data = json.loads(data)
 
                 print(json_data)
-
+                if not json_data.get('invoice_List'):
+                    continue
                 order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
                 order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
