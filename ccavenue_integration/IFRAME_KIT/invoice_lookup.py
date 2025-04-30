@@ -1,115 +1,114 @@
 import frappe
-from frappe.utils import getdate, now, get_datetime
-from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
 import json
-from ccavenue_integration.IFRAME_KIT.ccavutil import encrypt , decrypt
+import requests
+
+from frappe.utils import getdate, get_datetime, now
+from ccavenue_integration.IFRAME_KIT.ccavRequestHandler import ccav_request_handler
+from ccavenue_integration.IFRAME_KIT.ccavutil import encrypt, decrypt
 from pay_ccavenue import CCAvenue
 from Crypto.Random import get_random_bytes
 from datetime import datetime
 from erpnext.selling.doctype.quotation.quotation import make_sales_order
 
-# ccavenue.py
-
 
 def get_parameters():
-    get_quotation_list = frappe.db.get_list("Quotation", {"custom_payment_status" : "Pending", "custom_ccavenue_invoice_id" : ["!=" , ""]}, pluck="name")
-    for row in get_quotation_list:
-        doc = frappe.get_doc("Quotation", row)
+    quotations = frappe.db.get_list(
+        "Quotation",
+        filters={"custom_payment_status": "Pending", "custom_ccavenue_invoice_id": ["!=", ""]},
+        pluck="name"
+    )
+
+    if not quotations:
+        return
+
+    cc_settings = frappe.get_cached_doc("CCAvenue Settings")
+    if not cc_settings.enable:
+        return
+
+    key = cc_settings.working_key
+    url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
+
+    for quotation_name in quotations:
+        doc = frappe.get_doc("Quotation", quotation_name)
+
         if not doc.custom_ccavenue_invoice_id:
             continue
-        from_date = doc.transaction_date.strftime('%d-%m-%Y')
-
-        to_date = getdate().strftime('%d-%m-%Y')
 
         form_data = {
-            "from_date": from_date,
-            "to_date": to_date,
+            "from_date": doc.transaction_date.strftime('%d-%m-%Y'),
+            "to_date": getdate().strftime('%d-%m-%Y'),
             "invoice_id": doc.custom_ccavenue_invoice_id,
             "page_count": "1"
-            }
+        }
 
-        cc_doc = frappe.get_doc("CCAvenue Settings")
-        if cc_doc.enable:
-            access_code = cc_doc.access_code
-            WORKING_KEY = cc_doc.working_key
-            ACCESS_CODE = cc_doc.access_code
-            MERCHANT_CODE = cc_doc.merchant_code
-            REDIRECT_URL = cc_doc.redirect_url
-            CANCEL_URL = cc_doc.cancel_url
+        encrypted_data = encrypt(form_data, key)
+        payload = {
+            "request_type": "JSON",
+            "access_code": cc_settings.access_code,
+            "command": "invoiceList",
+            "version": "1.1",
+            "response_type": "JSON",
+            "enc_request": encrypted_data
+        }
 
-            my_string = WORKING_KEY
-            
-            key = my_string
-                
-            encrypted_data = encrypt(form_data, key)
+        try:
+            response = requests.post(url, data=payload)
+            encrypted_response = response.text.split('=')[2]
+            decrypted_data = decrypt(encrypted_response, key)
+            json_data = json.loads(decrypted_data)
 
-            import requests
-            
-            url = "https://api.ccavenue.com/apis/servlet/DoWebTrans"
+            invoice_list = json_data.get('invoice_List')
+            if not invoice_list:
+                continue
 
-            payload = {
-                "request_type": "JSON",
-                "access_code": ACCESS_CODE,
-                "command": "invoiceList",
-                "version": "1.1",
-                "response_type": "JSON",
-                "enc_request": encrypted_data
-            }
+            invoice_info = invoice_list[0]
+            order_amt = invoice_info.get("order_Amt")
+            gross_amt = invoice_info.get("order_Gross_Amt")
+            status = invoice_info.get("invoice_status")
+            status_datetime = invoice_info.get("order_Status_Date_time")
 
-            try:
-                response = requests.post(url, data=payload, headers={})
-                
-                response = response.text.split('=')[2]
-                
-                data = decrypt(response, key)
-                
-                json_data = json.loads(data)
+            # Confirmed Payment handling
+            payment_ref = frappe.db.exists("Confirmed Payment", {'reference_id': quotation_name})
+            if not payment_ref:
+                payment_confirm_doc = frappe.get_doc({
+                    "doctype": "Confirmed Payment",
+                    "reference_id": quotation_name,
+                    "paid_amount": gross_amt,
+                    "invoice_status": status
+                })
+                payment_confirm_doc.insert(ignore_permissions=True)
+            else:
+                cp_doc = frappe.get_doc("Confirmed Payment", payment_ref)
+                if cp_doc.invoice_status != status:
+                    cp_doc.invoice_status = status
+                    cp_doc.last_checked_time = invoice_info.get('order_Date_time')
+                    cp_doc.save()
 
-                print(json_data)
-                if not json_data.get('invoice_List'):
-                    continue
-                order_Gross_Amt = json_data.get('invoice_List')[0].get("order_Gross_Amt")
-                invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
-                order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
-                order_Amt = json_data.get('invoice_List')[0].get("order_Amt")
-                if not frappe.db.exists("Confirmed Payment", {'reference_id' : row}):
-                    print("enter")
-                    payment_confirm_doc = frappe.get_doc({
-                        "doctype" : "Confirmed Payment",
-                        "reference_id" : row,
-                        "paid_amount" : order_Gross_Amt,
-                        "invoice_status" : invoice_status
-                    })
-                    payment_confirm_doc.insert(ignore_permissions=True)
-                elif reference := frappe.db.exists("Confirmed Payment", {'reference_id' : row}):
-                    cp_doc = frappe.get_doc("Confirmed Payment", reference)
-                    if cp_doc.invoice_status != json_data.get('invoice_List')[0].get('invoice_status'):
-                        cp_doc.invoice_status = json_data.get('invoice_List')[0].get('invoice_status')
-                        cp_doc.last_checked_time = json_data.get('invoice_List')[0].get('order_Date_time')
-                        cp_doc.save()
-                if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered" and order_Amt == doc.grand_total:
-                    if frappe.db.get_value("Quotation", row, 'status') != "Ordered" and not frappe.db.exists("Sales Order Item", {"prevdoc_docname" : row}):
-                        so = make_sales_order(source_name = row)
-                        so.payment_schedule[0].due_date = getdate()
-                        so.delivery_date = getdate()
-                        so.save()
-                        so.submit()
-                        qo_doc = frappe.get_doc("Quotation", row)
-                        qo_doc.paid_amount = order_Gross_Amt
-                        qo_doc.custom_payment_status = invoice_status
-                        qo_doc.custom_payment_received_date = get_datetime(order_Status_Date_time)
-                        qo_doc.save()
+            # Create Sales Order if payment is successful
+            if (
+                gross_amt
+                and status == "Successful"
+                and doc.status != "Ordered"
+                and order_amt == doc.grand_total
+                and not frappe.db.exists("Sales Order Item", {"prevdoc_docname": quotation_name})
+            ):
+                sales_order = make_sales_order(source_name=quotation_name)
+                sales_order.payment_schedule[0].due_date = getdate()
+                sales_order.delivery_date = getdate()
+                sales_order.save()
+                sales_order.submit()
 
-                        # frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
-                        # frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
-                        # frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
-                frappe.db.commit()
-                # if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
-                #     frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
-                #     frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
-                #     frappe.db.commit()
-            except Exception as e:
-                frappe.log_error(e)
+                # Update Quotation with payment info
+                doc.paid_amount = gross_amt
+                doc.custom_payment_status = status
+                doc.custom_payment_received_date = get_datetime(status_datetime)
+                doc.save()
+
+            frappe.db.commit()
+
+        except Exception as e:
+            frappe.log_error(title="CCAvenue Payment Sync Failed", message=frappe.get_traceback())
+
 
 
 #{"invoice_List":[{"invoice_Id":4544188405,"reference_no":"","invoice_ref_no":"SAL-QTN-2024-00669","invoice_Created_By":"API","order_No":"","order_Type":"","order_Currency":"INR","order_Amt":1.0,"order_Date_time":"","order_Notes":"","order_Ip":"","order_Status":"","order_Bank_Response":"","order_Bank_Mid":"","order_Bank_Ref_No":"","order_Fraud_Status":"","order_Status_Date_time":"","order_Card_Type":"","order_Card_Name":"","order_Gtw_Id":"","order_Gross_Amt":0.0,"order_Discount":0.0,"order_Capt_Amt":0.0,"order_Fee_Perc":0.0,"order_Fee_Perc_Value":0.0,"order_Fee_Flat":0.0,"order_Tax":0.0,"order_Delivery_Details":"","order_Bill_Name":"","order_Bill_Address":"","order_Bill_Zip":"","order_Bill_Tel":"","order_Bill_Email":"","order_Bill_Country":"","order_Bill_City":"","order_Bill_State":"","order_Ship_Name":"","order_Ship_Address":"","order_Ship_Country":"","order_Ship_Tel":"","order_Ship_City":"","order_Ship_State":"","order_Ship_Zip":"","order_Ship_Email":"","order_Bill_Exp_Date_time":"2024-10-09 17:46:30.15","invoice_status":"Pending","sub_acc_id":""}],"error_Desc":"","page_count":1,"total_records":1,"error_code":""}
