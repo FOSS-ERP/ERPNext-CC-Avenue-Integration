@@ -73,6 +73,7 @@ def get_parameters():
                 order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
                 order_Amt = json_data.get('invoice_List')[0].get("order_Amt")
                 if not frappe.db.exits("Confirmed Payment", {'reference_id' : row}):
+                    print("enter")
                     payment_confirm_doc = frappe.get_doc({
                         "doctype" : "Confirmed Payment",
                         "reference_id" : row,
@@ -92,6 +93,7 @@ def get_parameters():
                         qo_doc.custom_payment_status = invoice_status
                         qo_doc.custom_payment_received_date = get_datetime(order_Status_Date_time)
                         qo_doc.save()
+                        
                         # frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
                         # frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                         # frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
