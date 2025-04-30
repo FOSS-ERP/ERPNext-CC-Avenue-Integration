@@ -72,7 +72,14 @@ def get_parameters():
                 invoice_status = json_data.get('invoice_List')[0].get("invoice_status")
                 order_Status_Date_time = json_data.get('invoice_List')[0].get("order_Status_Date_time")
                 order_Amt = json_data.get('invoice_List')[0].get("order_Amt")
-
+                if not frappe.db.exits("Confirmed Payment", {'reference_id' : row}):
+                    payment_confirm_doc = frappe.get_doc({
+                        "doctype" : "Confirmed Payment",
+                        "reference_id" : row,
+                        "paid_amount" : order_Gross_Amt,
+                        "invoice_status" : invoice_status
+                    })
+                    payment_confirm_doc.insert(ignore_permissions=True)
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered" and order_Amt == doc.grand_total:
                     if frappe.db.get_value("Quotation", row, 'status') != "Ordered" and not frappe.db.exists("Sales Order Item", {"prevdoc_docname" : row}):
                         so = make_sales_order(source_name = row)
@@ -88,7 +95,7 @@ def get_parameters():
                         # frappe.db.set_value("Quotation", row, 'paid_amount', order_Gross_Amt)
                         # frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                         # frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
-                        frappe.db.commit()
+                frappe.db.commit()
                 # if doc.status == "Ordered" and (order_Gross_Amt or invoice_status == "Successful"):
                 #     frappe.db.set_value("Quotation", row, 'custom_payment_status', invoice_status)
                 #     frappe.db.set_value("Quotation", row, 'custom_payment_received_date', get_datetime(order_Status_Date_time))
