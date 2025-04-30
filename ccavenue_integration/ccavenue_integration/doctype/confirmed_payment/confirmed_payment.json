@@ -7,7 +7,8 @@
  "field_order": [
   "reference_id",
   "paid_amount",
-  "invoice_status"
+  "invoice_status",
+  "last_checked_time"
  ],
  "fields": [
   {
@@ -27,12 +28,17 @@
    "fieldtype": "Data",
    "label": "Invoice Status",
    "read_only": 1
+  },
+  {
+   "fieldname": "last_checked_time",
+   "fieldtype": "Data",
+   "label": "Last Checked Time"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-04-30 16:57:24.424146",
+ "modified": "2025-04-30 17:47:27.702804",
  "modified_by": "Administrator",
  "module": "CCAvenue Integration",
  "name": "Confirmed Payment",

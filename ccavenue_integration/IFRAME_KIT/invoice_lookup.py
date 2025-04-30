@@ -81,6 +81,12 @@ def get_parameters():
                         "invoice_status" : invoice_status
                     })
                     payment_confirm_doc.insert(ignore_permissions=True)
+                elif reference := frappe.db.exists("Confirmed Payment", {'reference_id' : row}):
+                    cp_doc = frappe.get_doc("Confirmed Payment", reference)
+                    if cp_doc.invoice_status != json_data.get('invoice_List')[0].get('invoice_status'):
+                        cp_doc.invoice_status = json_data.get('invoice_List')[0].get('invoice_status')
+                        cp_doc.last_checked_time = json_data.get('invoice_List')[0].get('order_Date_time')
+                        cp_doc.save()
                 if order_Gross_Amt or invoice_status == "Successful" and doc.status != "Ordered" and order_Amt == doc.grand_total:
                     if frappe.db.get_value("Quotation", row, 'status') != "Ordered" and not frappe.db.exists("Sales Order Item", {"prevdoc_docname" : row}):
                         so = make_sales_order(source_name = row)
