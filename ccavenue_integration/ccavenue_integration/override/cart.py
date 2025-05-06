@@ -7,7 +7,7 @@ from frappe.utils import cint, cstr, flt, get_fullname
 
 from erpnext.selling.doctype.quotation.quotation import _make_sales_order
 
-
+import frappe
 @frappe.whitelist()
 def place_order():
 	quotation = _get_cart_quotation()
