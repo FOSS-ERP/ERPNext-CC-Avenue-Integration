@@ -56,7 +56,7 @@ def get_parameters():
             encrypted_response = response.text.split('=')[2]
             decrypted_data = decrypt(encrypted_response, key)
             json_data = json.loads(decrypted_data)
-
+            print(json_data)
             invoice_list = json_data.get('invoice_List')
             if not invoice_list:
                 continue
