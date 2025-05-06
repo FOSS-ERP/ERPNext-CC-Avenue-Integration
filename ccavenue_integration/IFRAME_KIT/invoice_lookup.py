@@ -14,7 +14,7 @@ from erpnext.selling.doctype.quotation.quotation import make_sales_order
 def get_parameters():
     quotations = frappe.db.get_list(
         "Quotation",
-        filters={"custom_payment_status": "Pending", "custom_ccavenue_invoice_id": ["!=", ""]},
+        filters={"custom_ccavenue_invoice_id": ["!=", ""]},
         pluck="name"
     )
 
@@ -103,7 +103,7 @@ def get_parameters():
                 doc.custom_payment_status = status
                 doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
-            elif (gross_amt and status == "Successful" and doc.custom_payment_status != "Successful" and order_amt == doc.grand_total):
+            elif (gross_amt and status == "Successful" and (doc.custom_payment_status != "Successful" or not doc.custom_payment_received_date)  and order_amt == doc.grand_total):
                 doc.custom_payment_status = "Successful"
                 doc.paid_amount = order_amt
                 doc.custom_payment_received_date = get_datetime(status_datetime)
