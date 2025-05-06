@@ -1,7 +1,7 @@
 from webshop.webshop.shopping_cart.cart import _get_cart_quotation
 from erpnext.selling.doctype.quotation.quotation import _make_sales_order
 from webshop.webshop.utils.product import get_web_item_qty_in_stock
-
+import frappe
 
 
 @frappe.whitelist()
