@@ -106,6 +106,7 @@ def get_parameters():
             elif (gross_amt and status == "Successful" and doc.custom_payment_status != "Successful" and order_amt == doc.grand_total):
                 doc.custom_payment_status = "Successful"
                 doc.paid_amount = order_amt
+                doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
             frappe.db.commit()
 
