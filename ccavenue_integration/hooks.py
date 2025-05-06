@@ -157,9 +157,9 @@ scheduler_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "ccavenue_integration.event.get_events"
-# }
+override_whitelisted_methods = {
+	"webshop.webshop.shopping_cart.cart.place_order": "ccavenue_integration.ccavenue_integration.override.cart.place_order"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
