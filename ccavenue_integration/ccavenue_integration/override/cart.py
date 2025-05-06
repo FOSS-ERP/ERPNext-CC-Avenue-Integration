@@ -2,6 +2,19 @@ from webshop.webshop.shopping_cart.cart import _get_cart_quotation
 from erpnext.selling.doctype.quotation.quotation import _make_sales_order
 from webshop.webshop.utils.product import get_web_item_qty_in_stock
 import frappe
+import frappe.defaults
+from frappe import _, throw
+from frappe.contacts.doctype.address.address import get_address_display
+from frappe.contacts.doctype.contact.contact import get_contact_name
+from frappe.utils import cint, cstr, flt, get_fullname
+from frappe.utils.nestedset import get_root_of
+
+from erpnext.accounts.utils import get_account_name
+from webshop.webshop.doctype.webshop_settings.webshop_settings import (
+    get_shopping_cart_settings,
+)
+from webshop.webshop.utils.product import get_web_item_qty_in_stock
+from erpnext.selling.doctype.quotation.quotation import _make_sales_order
 
 
 @frappe.whitelist()
