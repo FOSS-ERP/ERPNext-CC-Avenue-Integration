@@ -4,7 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from ccavenue_integration.ccavenue_integration.generate_ecommerce_payments import process_full_payment_invoice
-
+import time
 class CCAvenueSettings(Document):
 	def validate_transaction_currency(self, currency):
 		print(currency)
