@@ -54,7 +54,7 @@ def place_order():
 
 	sales_order.flags.ignore_permissions = True
 	sales_order.insert(ignore_permissions = True)
-	sales_order.submit()
+	# sales_order.submit()
 
 	if hasattr(frappe.local, "cookie_manager"):
 		frappe.local.cookie_manager.delete_cookie("cart_count")
