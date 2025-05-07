@@ -13,7 +13,7 @@ def process_full_payment_invoice(self, button=False):
         frappe.throw("Taxes are not added in this quotation")
     
     form_data =  {
-        "customer_name": self.customer_name,
+        "customer_name": self.customer_name or frappe.db.get_value("User", frappe.session.user, "full_name"),
         "customer_email_id": self.contact_email ,
         "customer_email_subject": "Invoice",
         "customer_mobile_no": self.contact_mobile.replace(" ", '') if self.contact_mobile else 9999999999,
