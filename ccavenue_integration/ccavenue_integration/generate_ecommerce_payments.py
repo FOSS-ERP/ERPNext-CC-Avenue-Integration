@@ -76,7 +76,7 @@ def process_full_payment_invoice(self, button=False):
         frappe.db.set_value("Quotation", self.name, "custom_payment_url", response.get('tiny_url'))
         frappe.db.set_value("Quotation", self.name, "custom_ccavenue_invoice_id", response.get('invoice_id'))
         frappe.db.set_value("Quotation", self.name, "custom_proforma_invoice_date", get_datetime())
-
+        frappe.db.commit()
         return response.get('tiny_url')
     except Exception as e:
         frappe.log_error(e)
