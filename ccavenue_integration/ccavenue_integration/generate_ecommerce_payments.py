@@ -11,12 +11,16 @@ def process_full_payment_invoice(self, button=False):
     doc = frappe.get_doc("CCAvenue Settings")
     if not len(self.taxes):
         frappe.throw("Taxes are not added in this quotation")
-    
+    if not self.contact_mobile and self.customer_address:
+        contact_mobile = frappe.db.get_value("Address", self.customer_address, "phone")
+    else:
+        contact_mobile = self.contact_mobile
+        
     form_data =  {
         "customer_name": self.customer_name or frappe.db.get_value("User", frappe.session.user, "full_name"),
         "customer_email_id": self.contact_email ,
         "customer_email_subject": "Invoice",
-        "customer_mobile_no": self.contact_mobile.replace(" ", '') if self.contact_mobile else 9999999999,
+        "customer_mobile_no": contact_mobile,
         "currency": "INR",
         "valid_for": "2",
         "valid_type": "days",
