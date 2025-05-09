@@ -25,7 +25,7 @@ def process_full_payment_invoice(self, button=False):
         "valid_for": "2",
         "valid_type": "days",
         "item_List": [],
-        "merchant_reference_no": self.name,
+        "merchant_reference_no": "25 4TH FLOOR RAGHAVENDRA NILAYA 1ST MAIN ROAD AECS LAYOUT BENGALURU KARNATAKA",
         "merchant_reference_no1": self.custom_customer_gstin or self.name,
         "merchant_reference_no2": self.name,
         "merchant_reference_no3": self.name,
