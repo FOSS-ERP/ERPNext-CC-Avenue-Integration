@@ -108,6 +108,9 @@ def get_parameters():
                 doc.paid_amount = order_amt
                 doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
+                if doc.order_type == "Shopping Cart":
+                    so_doc = frappe.get_doc("Sales Order", doc.sales_order)
+                    so_doc.submit()
             frappe.db.commit()
 
         except Exception as e:
