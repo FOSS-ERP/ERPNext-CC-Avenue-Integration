@@ -113,7 +113,7 @@ def get_parameters():
                     if row.item_code in ["Digital Learning", "Testing Shoping Cart"]:
                         cource_list = frappe.db.get_list("LMS Course", pluck="name")
                         for d in cource_list:
-                            le_doc = frappe.get_doc("LMS Enrollment")
+                            le_doc = frappe.new_doc("LMS Enrollment")
                             le_doc.course = d
                             dole_docc.member = doc.owner
                             le_doc.insert()
