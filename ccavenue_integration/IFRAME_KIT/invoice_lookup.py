@@ -108,7 +108,7 @@ def get_parameters():
                 doc.paid_amount = order_amt
                 doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
-            if (status == "Successful" and order_type == "Shopping Cart"):
+            if (status == "Successful" and self.order_type == "Shopping Cart"):
                 for row in doc.items:
                     if row.item_code in ["Digital Learning", "Testing Shoping Cart"]:
                         cource_list = frappe.db.get_list("LMS Course", pluck="name")
