@@ -115,7 +115,7 @@ def get_parameters():
                         for d in cource_list:
                             le_doc = frappe.new_doc("LMS Enrollment")
                             le_doc.course = d
-                            dole_docc.member = doc.owner
+                            le_doc.member = doc.owner
                             le_doc.insert()
             frappe.db.commit()
 
