@@ -92,6 +92,8 @@ def get_parameters():
                 and order_amt == doc.grand_total
                 and not frappe.db.exists("Sales Order Item", {"prevdoc_docname": quotation_name})
             ):
+                if doc.quotation_to == "Lead" and frappe.db.exits("Customer", {"lead_name" : doc.party_name}):
+                    validate_party_address(doc)
                 sales_order = make_sales_order(source_name=quotation_name)
                 sales_order.payment_schedule[0].due_date = getdate()
                 sales_order.delivery_date = getdate()
@@ -116,3 +118,18 @@ def get_parameters():
 
 # from ccavenue_integration.IFRAME_KIT.invoice_lookup import get_parameters
 #{"invoice_List":[{"invoice_Id":4544188405,"reference_no":"","invoice_ref_no":"SAL-QTN-2024-00669","invoice_Created_By":"API","order_No":"","order_Type":"","order_Currency":"INR","order_Amt":1.0,"order_Date_time":"","order_Notes":"","order_Ip":"","order_Status":"","order_Bank_Response":"","order_Bank_Mid":"","order_Bank_Ref_No":"","order_Fraud_Status":"","order_Status_Date_time":"","order_Card_Type":"","order_Card_Name":"","order_Gtw_Id":"","order_Gross_Amt":0.0,"order_Discount":0.0,"order_Capt_Amt":0.0,"order_Fee_Perc":0.0,"order_Fee_Perc_Value":0.0,"order_Fee_Flat":0.0,"order_Tax":0.0,"order_Delivery_Details":"","order_Bill_Name":"","order_Bill_Address":"","order_Bill_Zip":"","order_Bill_Tel":"","order_Bill_Email":"","order_Bill_Country":"","order_Bill_City":"","order_Bill_State":"","order_Ship_Name":"","order_Ship_Address":"","order_Ship_Country":"","order_Ship_Tel":"","order_Ship_City":"","order_Ship_State":"","order_Ship_Zip":"","order_Ship_Email":"","order_Bill_Exp_Date_time":"2024-10-09 17:46:30.15","invoice_status":"Pending","sub_acc_id":""}],"error_Desc":"","page_count":1,"total_records":1,"error_code":""}
+
+def validate_party_address(doc):
+    if customer := frappe.db.exits("Customer", {"lead_name" : doc.party_name}):
+        address_doc = frappe.get_doc("Address", doc.customer_address)
+        customer_links = False
+        for row in address_doc.links:
+            if row.link_doctype == "Customer" and row.link_name == customer:
+                customer_links = True
+                break
+        if not customer_links:
+            address_doc.append("links", {
+                "link_doctype" : "Customer",
+                "link_name" : customer
+            })
+            address_doc.save()
