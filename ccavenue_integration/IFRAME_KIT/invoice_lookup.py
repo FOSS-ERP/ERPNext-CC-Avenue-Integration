@@ -110,6 +110,15 @@ def get_parameters():
                 doc.paid_amount = order_amt
                 doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
+            if (status == "Successful" and doc.order_type == "Shopping Cart"):
+                for row in doc.items:
+                    if row.item_code in ["Digital Learning", "Testing Shoping Cart"]:
+                        cource_list = frappe.db.get_list("LMS Course", pluck="name")
+                        for d in cource_list:
+                            le_doc = frappe.new_doc("LMS Enrollment")
+                            le_doc.course = d
+                            le_doc.member = doc.owner
+                            le_doc.insert()
             frappe.db.commit()
 
         except Exception as e:
