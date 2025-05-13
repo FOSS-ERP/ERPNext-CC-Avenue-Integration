@@ -20,7 +20,7 @@ class CCAvenueSettings(Document):
 
 		qo_doc = frappe.get_doc("Quotation", quotation)
 		url = process_full_payment_invoice(qo_doc)
-		time.sleep(3)
+		time.sleep(5)
 		return url
 
 		
