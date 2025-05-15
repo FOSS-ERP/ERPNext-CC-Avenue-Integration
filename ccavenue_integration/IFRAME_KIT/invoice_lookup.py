@@ -113,6 +113,7 @@ def get_parameters():
             if (status == "Successful" and doc.order_type == "Shopping Cart"):
                 user_doc = frappe.get_doc("User", doc.owner)
                 user_doc.add_roles("LMS Student")
+                full_name = user_doc.full_name or "Learner"
                 for row in doc.items:
                     if row.item_code in ["Digital Learning", "Testing Shoping Cart"] and not doc.enrolled:
                         cource_list = frappe.db.get_list("LMS Course", pluck="name")
@@ -136,6 +137,7 @@ def get_parameters():
                         """
                         frappe.sendmail(recipients=[user_doc.name], content=message, subject=subject)
                     elif not doc.service_email_sent:
+                        subject = "Confirmation of Service Booking"
                         message = f"""
                             <p>Hi {full_name},</p>
                             <p>Thank you for your purchase!</p>
