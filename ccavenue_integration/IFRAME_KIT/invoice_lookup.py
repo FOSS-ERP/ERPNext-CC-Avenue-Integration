@@ -112,7 +112,7 @@ def get_parameters():
                 doc.save()
             if (status == "Successful" and doc.order_type == "Shopping Cart"):
                 for row in doc.items:
-                    if row.item_code in ["Digital Learning", "Testing Shoping Cart"]:
+                    if row.item_code in ["Digital Learning", "Testing Shoping Cart"] and not doc.enrolled:
                         cource_list = frappe.db.get_list("LMS Course", pluck="name")
                         for d in cource_list:
                             le_doc = frappe.new_doc("LMS Enrollment")
@@ -121,6 +121,7 @@ def get_parameters():
                             le_doc.insert()
                         user_doc = frappe.get_doc("User", doc.owner)
                         user_doc.add_roles("LMS Student")
+                        frappe.db.set_value(doc.doctype, doc.name, "enrolled", 1)
 
                         full_name = user_doc.full_name or "Learner"
                         subject = "Your Course is Ready – Access Your Learning Now!"
@@ -133,7 +134,7 @@ def get_parameters():
                             <p>Happy learning!</p>
                         """
                         frappe.sendmail(recipients=[user_doc.name], content=message, subject=subject)
-                    else:
+                    elif not doc.service_email_sent:
                         message = f"""
                             <p>Hi {full_name},</p>
                             <p>Thank you for your purchase!</p>
@@ -143,6 +144,7 @@ def get_parameters():
                             <p>If you have any questions or need help, feel free to reply to this email. We're always happy to help.</p>
                             <p>Happy learning!</p>
                         """
+                        frappe.db.set_value(doc.doctype, doc.name, "service_email_sent", 1)
                         frappe.sendmail(recipients=[user_doc.name], content=message, subject=subject)
             frappe.db.commit()
 
