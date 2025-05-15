@@ -15,10 +15,15 @@ def process_full_payment_invoice(self, button=False):
         contact_mobile = frappe.db.get_value("Address", self.customer_address, "phone")
     else:
         contact_mobile = self.contact_mobile
+    contact_email = self.contact_email
+    if not self.contact_email and self.contact_person:
+        contact_email = frappe.db.get_value("Contact", self.contact_person, "email_id")
+        if not contact_email:
+            contact_email = frappe.db.get_value("Contact", self.contact_person, "user")
         
     form_data =  {
         "customer_name": self.customer_name or frappe.db.get_value("User", frappe.session.user, "full_name"),
-        "customer_email_id": self.contact_email ,
+        "customer_email_id": contact_email ,
         "customer_email_subject": "Invoice",
         "customer_mobile_no": contact_mobile,
         "currency": "INR",
