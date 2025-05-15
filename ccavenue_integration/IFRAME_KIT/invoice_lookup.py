@@ -119,6 +119,31 @@ def get_parameters():
                             le_doc.course = d
                             le_doc.member = doc.owner
                             le_doc.insert()
+                        user_doc = frappe.get_doc("User", doc.owner)
+                        user_doc.add_roles("LMS Student")
+
+                        full_name = user_doc.full_name or "Learner"
+                        subject = "Your Course is Ready – Access Your Learning Now!"
+                        message = f"""
+                            <p>Hi {full_name},</p>
+                            <p>Thank you for your purchase!</p>
+                            <p>We’re excited to let you know that your courses are now available. You can start learning right away by clicking the link below:</p>
+                            <p>👉 <a href='https://businesscatalysts.frappe.cloud/lms/courses'>Click Here to Access Your Course</a></p>
+                            <p>If you have any questions or need help accessing the course, feel free to reply to this email. We're always happy to help.</p>
+                            <p>Happy learning!</p>
+                        """
+                        frappe.sendmail(recipients=[user_doc.name], content=message, subject=subject)
+                    else:
+                        message = f"""
+                            <p>Hi {full_name},</p>
+                            <p>Thank you for your purchase!</p>
+                            <p><strong>Purchased Service : </strong>{row.item_code}</p>
+                            <p>Our Management team will be reachout to you shortly.</p>
+                            <p><strong>Payment Reference No : { doc.custom_ccavenue_invoice_id }</strong></p>
+                            <p>If you have any questions or need help, feel free to reply to this email. We're always happy to help.</p>
+                            <p>Happy learning!</p>
+                        """
+                        frappe.sendmail(recipients=[user_doc.name], content=message, subject=subject)
             frappe.db.commit()
 
         except Exception as e:
