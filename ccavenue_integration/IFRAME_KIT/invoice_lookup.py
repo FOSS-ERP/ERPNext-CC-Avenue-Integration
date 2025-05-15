@@ -111,6 +111,8 @@ def get_parameters():
                 doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
             if (status == "Successful" and doc.order_type == "Shopping Cart"):
+                user_doc = frappe.get_doc("User", doc.owner)
+                user_doc.add_roles("LMS Student")
                 for row in doc.items:
                     if row.item_code in ["Digital Learning", "Testing Shoping Cart"] and not doc.enrolled:
                         cource_list = frappe.db.get_list("LMS Course", pluck="name")
@@ -119,8 +121,7 @@ def get_parameters():
                             le_doc.course = d
                             le_doc.member = doc.owner
                             le_doc.insert()
-                        user_doc = frappe.get_doc("User", doc.owner)
-                        user_doc.add_roles("LMS Student")
+                        
                         frappe.db.set_value(doc.doctype, doc.name, "enrolled", 1)
 
                         full_name = user_doc.full_name or "Learner"
