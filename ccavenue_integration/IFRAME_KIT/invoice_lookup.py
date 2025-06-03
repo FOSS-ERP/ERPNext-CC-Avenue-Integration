@@ -101,11 +101,13 @@ def get_parameters():
                 sales_order.submit()
 
                 # Update Quotation with payment info
+                doc = frappe.get_doc("Quotation", quotation_name)
                 doc.paid_amount = gross_amt
                 doc.custom_payment_status = status
                 doc.custom_payment_received_date = get_datetime(status_datetime)
                 doc.save()
             elif (gross_amt and status == "Successful" and (doc.custom_payment_status != "Successful" or not doc.custom_payment_received_date)  and order_amt == doc.grand_total):
+                doc = frappe.get_doc("Quotation", quotation_name)
                 doc.custom_payment_status = "Successful"
                 doc.paid_amount = order_amt
                 doc.custom_payment_received_date = get_datetime(status_datetime)
