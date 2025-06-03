@@ -81,6 +81,7 @@ def get_parameters():
                 cp_doc = frappe.get_doc("Confirmed Payment", payment_ref)
                 if cp_doc.invoice_status != status:
                     cp_doc.invoice_status = status
+                    cp_doc.paid_amount = gross_amt
                     cp_doc.last_checked_time = invoice_info.get('order_Date_time')
                     cp_doc.save()
 
