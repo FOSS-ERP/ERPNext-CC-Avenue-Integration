@@ -119,7 +119,7 @@ def get_parameters():
                 full_name = user_doc.full_name or "Learner"
                 for row in doc.items:
                     if row.item_code in ["Digital Learning", "Testing Shoping Cart"] and not doc.enrolled:
-                        cource_list = frappe.db.get_list("LMS Course", pluck="name")
+                        cource_list = frappe.db.get_list("LMS Course", {"published": 1}, pluck="name")
                         for d in cource_list:
                             le_doc = frappe.new_doc("LMS Enrollment")
                             le_doc.course = d
