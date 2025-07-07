@@ -39,7 +39,7 @@ def get_items():
         response = requests.post(url, data=payload, headers={})
         
         response = response.text.split('=')[2]
-
+        print(response)
         data = decrypt(response, key)
 
         json_data = json.loads(data)
