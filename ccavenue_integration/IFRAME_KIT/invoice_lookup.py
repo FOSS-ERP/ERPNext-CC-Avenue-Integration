@@ -93,8 +93,8 @@ def get_parameters():
                 and order_amt == doc.grand_total
                 and not frappe.db.exists("Sales Order Item", {"prevdoc_docname": quotation_name})
             ):
-                if doc.quotation_to == "Lead" and frappe.db.exists("Customer", {"lead_name" : doc.party_name}):
-                    validate_party_address(doc)
+                # if doc.quotation_to == "Lead" and frappe.db.exists("Customer", {"lead_name" : doc.party_name}):
+                #     validate_party_address(doc)
                 sales_order = make_sales_order(source_name=quotation_name)
                 sales_order.payment_schedule[0].due_date = getdate()
                 sales_order.delivery_date = getdate()
