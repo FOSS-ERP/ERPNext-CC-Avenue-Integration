@@ -14,7 +14,7 @@ from erpnext.selling.doctype.quotation.quotation import make_sales_order
 def get_parameters():
     quotations = frappe.db.get_list(
         "Quotation",
-        filters={ "custom_ccavenue_invoice_id": ["!=", ""], "status" : ['!=', 'Ordered'] },
+        filters={"custom_ccavenue_invoice_id": ["!=", ""]},
         pluck="name"
     )
 
